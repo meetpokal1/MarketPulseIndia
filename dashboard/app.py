@@ -721,14 +721,86 @@ elif nav_choice == "5. Market Decision Simulator":
     fig_w.update_layout(paper_bgcolor="#111827", plot_bgcolor="#111827", height=320)
     st.plotly_chart(fig_w, use_container_width=True)
 
-    # Sensitivity Heatmap Table
+    # Sensitivity Matrix: Freight Rate vs Transit Loss
     st.markdown("### Sensitivity Matrix: Freight Rate vs Transit Loss")
-    sens_df = sim_res["sensitivity_matrix"]
-    pivot_sens = sens_df.pivot(index="freight_per_quintal", columns="shrinkage_pct", values="scenario_differential")
-    st.dataframe(
-        pivot_sens.style.format("₹{:,.0f}").background_gradient(cmap="RdYlGn"),
-        use_container_width=True,
-    )
+    sens_df = sim_res.get("sensitivity_matrix")
+    if sens_df is None or sens_df.empty:
+        st.info("Sensitivity matrix unavailable for current scenario parameters.")
+    else:
+        pivot_sens = sens_df.pivot(index="freight_per_quintal", columns="shrinkage_pct", values="scenario_differential")
+        pivot_be = sens_df.pivot(index="freight_per_quintal", columns="shrinkage_pct", values="breakeven_cost_quintal")
+
+        x_labels = [f"{col:.1f}% Shrinkage" for col in pivot_sens.columns]
+        y_labels = [f"₹{idx:.0f}/Qtl Freight" for idx in pivot_sens.index]
+        z_vals = pivot_sens.values
+        text_vals = [[f"₹{val:+,.0f}" for val in row] for row in z_vals]
+        max_abs = max(abs(float(z_vals.min())), abs(float(z_vals.max())), 1.0)
+
+        customdata = []
+        for i, f_idx in enumerate(pivot_sens.index):
+            row_data = []
+            for j, s_col in enumerate(pivot_sens.columns):
+                be_val = pivot_be.loc[f_idx, s_col]
+                row_data.append([be_val, f"₹{be_val:,.2f}/Qtl", "Viable (+)" if z_vals[i][j] > 0 else "Loss (-)"])
+            customdata.append(row_data)
+
+        fig_heat = go.Figure(data=go.Heatmap(
+            z=z_vals,
+            x=x_labels,
+            y=y_labels,
+            text=text_vals,
+            texttemplate="%{text}",
+            textfont={"size": 13, "color": "#f8fafc", "family": "Inter, sans-serif"},
+            colorscale="RdYlGn",
+            zmid=0,
+            zmin=-max_abs,
+            zmax=max_abs,
+            colorbar=dict(
+                title=dict(text="Net Diff (₹)", font=dict(color="#94a3b8", size=12)),
+                tickprefix="₹",
+                tickfont=dict(color="#94a3b8"),
+                len=0.9,
+            ),
+            customdata=customdata,
+            hovertemplate=(
+                "<b>Scenario Stress Point</b><br>"
+                "Freight Rate: <b>%{y}</b><br>"
+                "Transit Shrinkage: <b>%{x}</b><br>"
+                "Delivered Breakeven: <b>%{customdata[1]}</b><br>"
+                "Hypothetical Net Differential: <b>%{text}</b> (%{customdata[2]})"
+                "<extra></extra>"
+            ),
+        ))
+        fig_heat.update_layout(
+            title=dict(
+                text="Hypothetical Net Scenario Differential Across Freight & Transit Shrinkage Variations",
+                font=dict(size=14, color="#e2e8f0"),
+            ),
+            xaxis=dict(title="Transit Shrinkage Loss (%)", tickfont=dict(color="#cbd5e1")),
+            yaxis=dict(title="Freight Cost (₹/Quintal)", tickfont=dict(color="#cbd5e1")),
+            template="plotly_dark",
+            paper_bgcolor="#111827",
+            plot_bgcolor="#111827",
+            height=340,
+            margin=dict(l=50, r=40, t=50, b=50),
+        )
+        st.plotly_chart(fig_heat, use_container_width=True)
+
+        with st.expander("View Tabular Sensitivity Metrics", expanded=False):
+            table_display = sens_df.copy()
+            table_display["freight_per_quintal"] = table_display["freight_per_quintal"].map("₹{:,.1f}/Qtl".format)
+            table_display["shrinkage_pct"] = table_display["shrinkage_pct"].map("{:.1f}%".format)
+            table_display["breakeven_cost_quintal"] = table_display["breakeven_cost_quintal"].map("₹{:,.2f}".format)
+            table_display["scenario_differential"] = table_display["scenario_differential"].map("₹{:,.2f}".format)
+            table_display["viability_status"] = table_display["is_viable"].map(lambda v: "✅ Economically Viable" if v else "❌ Deficit / Loss")
+            table_display = table_display.rename(columns={
+                "freight_per_quintal": "Freight Rate",
+                "shrinkage_pct": "Transit Loss",
+                "breakeven_cost_quintal": "Breakeven Cost",
+                "scenario_differential": "Scenario Net Differential",
+                "viability_status": "Status",
+            })[["Freight Rate", "Transit Loss", "Breakeven Cost", "Scenario Net Differential", "Status"]]
+            st.dataframe(table_display, use_container_width=True, hide_index=True)
 
 # ==============================================================================
 # WORKSPACE 6: RESEARCH BRIEF & EXPORT

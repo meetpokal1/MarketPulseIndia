@@ -13,7 +13,8 @@ from playwright.sync_api import sync_playwright
 sys.stdout.reconfigure(encoding='utf-8')
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-SCREENSHOTS_DIR = BASE_DIR / "screenshots" / "runtime"
+OUTPUT_SUBDIR = sys.argv[1] if len(sys.argv) > 1 else "stage2_verification"
+SCREENSHOTS_DIR = BASE_DIR / "screenshots" / OUTPUT_SUBDIR
 SCREENSHOTS_DIR.mkdir(parents=True, exist_ok=True)
 PORT = 8544
 STREAMLIT_URL = f"http://127.0.0.1:{PORT}"
@@ -140,14 +141,32 @@ def run_ui_qa():
             page.wait_for_selector("text=Market Decision Simulator: Procurement", timeout=20000)
             page.wait_for_timeout(2500)
 
+            # Wait for Plotly charts to render
+            page.wait_for_selector(".js-plotly-plot", timeout=15000)
+
             sim_metric_labels = page.locator('[data-testid="stMetricLabel"]').all_text_contents()
             sim_metric_vals = page.locator('[data-testid="stMetricValue"]').all_text_contents()
             metrics_w5 = dict(zip(sim_metric_labels, sim_metric_vals))
-            print("Decision Simulator Metrics:", metrics_w5)
-            qa_results["decision_simulator_metrics"] = metrics_w5
+            print("Decision Simulator Metrics (Initial):", metrics_w5)
+            qa_results["decision_simulator_metrics_initial"] = metrics_w5
 
             page.screenshot(path=str(SCREENSHOTS_DIR / "05_decision_simulator.png"), full_page=True)
-            print("Captured 05_decision_simulator.png")
+            print("Captured 05_decision_simulator.png (Initial)")
+
+            # Exercise inputs: Adjust Destination Reference Price from ₹2250 to ₹2500
+            print("Exercising simulator inputs (adjusting destination price to ₹2,500)...")
+            dest_input = page.locator('input[aria-label*="Destination Reference Price"]').first
+            if dest_input.count() > 0:
+                dest_input.fill("2500.0")
+                dest_input.press("Enter")
+                page.wait_for_timeout(2500)
+                sim_metric_labels_ex = page.locator('[data-testid="stMetricLabel"]').all_text_contents()
+                sim_metric_vals_ex = page.locator('[data-testid="stMetricValue"]').all_text_contents()
+                metrics_w5_ex = dict(zip(sim_metric_labels_ex, sim_metric_vals_ex))
+                print("Decision Simulator Metrics (Exercised):", metrics_w5_ex)
+                qa_results["decision_simulator_metrics_exercised"] = metrics_w5_ex
+                page.screenshot(path=str(SCREENSHOTS_DIR / "05_decision_simulator_exercised.png"), full_page=True)
+                print("Captured 05_decision_simulator_exercised.png")
 
             # -------------------------------------------------------------
             # 6. Research Brief & Export
