@@ -1,0 +1,1 @@
+"""MarketPulse India Core Package"""

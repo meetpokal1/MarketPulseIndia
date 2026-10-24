@@ -1,0 +1,34 @@
+{
+  "market_explorer_metrics": {
+    "Reporting Markets": "443",
+    "Total Records": "198,704",
+    "Median Modal Price": "\u20b93,000.0/Qtl",
+    "Average Arrivals": "119.5 MT/day",
+    "Date Span": "25 Months"
+  },
+  "price_spread_metrics": {
+    "Overlapping Days": "507",
+    "Mean Price Spread": "\u20b9-157.76/Qtl",
+    "Median Spread": "\u20b9-100.00/Qtl",
+    "Negative Spread Days": "74.75%",
+    "Price Correlation": "0.979",
+    "Overall Price CV": "0.5367",
+    "Mean Daily Price": "\u20b92,071.9/Qtl",
+    "Daily Return AR(1)": "-0.0146",
+    "Severe Price Shocks (>25%)": "5"
+  },
+  "econometric_panel_metrics": {
+    "Sample Size (N)": "197,941",
+    "APMC Markets (G)": "394",
+    "Elasticity (\u03b2)": "-0.0360",
+    "Cluster-Robust SE": "0.0183",
+    "Price Response to -10% Arrivals": "+0.38%"
+  },
+  "decision_simulator_metrics": {
+    "Total Landed Outlay": "\u20b9212,547.50",
+    "Delivered Saleable Volume": "98.0 Qtl",
+    "Breakeven Cost": "\u20b92,168.85/Qtl",
+    "Breakeven Cost per kg": "\u20b921.69/kg",
+    "Hypothetical Margin": "\u20b9+7,952.50"
+  }
+}

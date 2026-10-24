@@ -1,0 +1,24 @@
+[project]
+name = "marketpulse-india"
+version = "1.0.0"
+description = "MarketPulse India - Agricultural Market-Price & Supply Intelligence Platform"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "duckdb>=2.0.0",
+    "polars>=2.0.0",
+    "pyarrow>=26.0.0",
+    "pandas>=3.0.0",
+    "scipy>=1.18.0",
+    "statsmodels>=0.15.0",
+    "streamlit>=1.66.0",
+    "plotly>=7.1.0",
+    "pytest>=9.0.0",
+    "playwright>=1.64.0",
+]
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = "-ra -q"
+testpaths = ["tests"]
+pythonpath = ["."]
