@@ -72,12 +72,21 @@ def create_standardized_analytical_view(con: duckdb.DuckDBPyConnection) -> None:
             h.anomaly_score,
             h.is_anomaly,
             -- Data Quality Flags
-            (h.representative_price >= {MIN_PLAUSIBLE_PRICE} AND h.min_price <= h.max_price) as is_valid_price,
-            (h.arrivals_tonnes > 0) as is_valid_arrival,
-            CASE 
-                WHEN h.representative_price < {MIN_PLAUSIBLE_PRICE} THEN 'SCALE_ERROR_LOW_PRICE'
+            (
+                h.representative_price IS NOT NULL
+                AND h.min_price IS NOT NULL
+                AND h.max_price IS NOT NULL
+                AND h.representative_price >= {MIN_PLAUSIBLE_PRICE}
+                AND h.min_price >= {MIN_PLAUSIBLE_PRICE}
+                AND h.min_price <= h.max_price
+            ) as is_valid_price,
+            (h.arrivals_tonnes IS NOT NULL AND h.arrivals_tonnes > 0) as is_valid_arrival,
+            CASE
+                WHEN h.representative_price < {MIN_PLAUSIBLE_PRICE} OR h.min_price < {MIN_PLAUSIBLE_PRICE} THEN 'SCALE_ERROR_LOW_PRICE'
                 WHEN h.min_price > h.max_price THEN 'INVERTED_PRICE_RANGE'
                 WHEN h.arrivals_tonnes <= 0 THEN 'ZERO_ARRIVALS'
+                WHEN h.representative_price IS NULL OR h.min_price IS NULL OR h.max_price IS NULL THEN 'NULL_PRICE'
+                WHEN h.arrivals_tonnes IS NULL THEN 'NULL_ARRIVALS'
                 ELSE 'VALID'
             END as record_quality_status
         FROM raw_history h
