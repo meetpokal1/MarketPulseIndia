@@ -1,0 +1,87 @@
+{
+  "project": "MarketPulse India \u2014 Wholesale Mandi Price Intelligence",
+  "pipeline": "Stage 3A: Tableau Analytical Data Products Exporter",
+  "generated_at_utc": "2026-10-24T19:16:01Z",
+  "source_dataset": {
+    "path": "data\\raw\\all_market_history.parquet",
+    "sha256": "DA8E4435D7B63693C406401E0FA3B1F084FD1010F650598BA5030715A57ED6A4",
+    "size_bytes": 8190344,
+    "row_count": 1481324,
+    "min_date": "2024-08-30",
+    "max_date": "2026-09-28"
+  },
+  "export_directory": "data\\processed\\tableau",
+  "analytical_data_products": [
+    {
+      "filename": "market_monthly.csv",
+      "grain": "market_id x commodity x calendar month",
+      "rows": 77890,
+      "columns": 26,
+      "size_bytes": 15139308,
+      "sha256": "EEDEBB58C82B2CEEE618D32F75554ECBE1014186FE22C16CBC40F556C807B151"
+    },
+    {
+      "filename": "corridor_spread_daily.csv",
+      "grain": "corridor_id x date",
+      "rows": 1927,
+      "columns": 25,
+      "corridors_included": [
+        "Lasalgaon APMC -> Mumbai APMC (Onion Flagship Inversion)",
+        "Lasalgaon APMC -> Pune APMC (Onion Regional Hub)",
+        "Pimpalgaon Baswant APMC -> Mumbai APMC (Onion Production Hub)",
+        "Pune APMC -> Mumbai APMC (Onion Inter-City Metro)"
+      ],
+      "size_bytes": 871943,
+      "sha256": "5684DD86BDCC46D3141F44BF80B954DAE5599C60EDC90968CDBFFBAB1DE1C5BE"
+    },
+    {
+      "filename": "arrival_elasticity_models.csv",
+      "grain": "commodity model specification",
+      "rows": 14,
+      "columns": 26,
+      "commodities_modeled": 14,
+      "size_bytes": 10810,
+      "sha256": "A530A1AB5DA171FC5F122D138C46E2AA97BE5883ECCF2231375DB6277FCC7104"
+    },
+    {
+      "filename": "frozen_price_streaks.csv",
+      "grain": "streak_id (uninterrupted unchanged trading days >= 7)",
+      "rows": 27420,
+      "columns": 14,
+      "max_streak_days": 518,
+      "size_bytes": 5345018,
+      "sha256": "86ACC92C789CC543F186EFC2F60805A5A6AB3C5EF9036D770F0D1D751E2F4AD7"
+    },
+    {
+      "filename": "quality_exceptions.csv",
+      "grain": "exception_id (raw observation with quality defect)",
+      "rows": 74,
+      "columns": 16,
+      "scale_errors": 70,
+      "zero_arrivals": 4,
+      "size_bytes": 21741,
+      "sha256": "0A0085BD4284F77EF6E74ED8A161570910F012CCED0F62EF6B0B69470F95ABD2"
+    },
+    {
+      "filename": "quality_monthly_summary.csv",
+      "grain": "state x calendar month",
+      "rows": 156,
+      "columns": 13,
+      "total_records_summed": 1481324,
+      "valid_records_summed": 1481250,
+      "size_bytes": 13173,
+      "sha256": "E452AB4C56E843DEC387C985F952519BEB419C9D90B4ED923E8B72FBE4C6F000"
+    }
+  ],
+  "provenance_and_integrity": {
+    "conservation_law": "Total Raw (1,481,324) = Valid (1,481,250) + Scale Errors (70) + Zero Arrivals (4) + Inverted (0)",
+    "lasalgaon_mumbai_spread": "507 trading days, mean spread -\u20b9157.76/Qtl, Mumbai lower on 74.75% of days",
+    "twfe_arrival_elasticity_onion": "Beta = -0.0360 (SE = 0.0183), counterfactual -10% arrivals associates with +0.38% price response",
+    "frozen_price_streaks_total": "27,420 streaks (>= 7 consecutive trading days unchanged)"
+  },
+  "tableau_public_constraints": {
+    "max_row_limit": 15000000,
+    "largest_dataset_rows": 77890,
+    "refresh_policy": "Curated snapshot extract; Tableau Public workbook uses extracted CSV data with no live external DB connection."
+  }
+}
