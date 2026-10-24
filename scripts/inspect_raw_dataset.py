@@ -1,8 +1,10 @@
 import pyarrow.parquet as pq
 import pandas as pd
+from pathlib import Path
 import json
 
-PARQUET_PATH = r"C:\Users\Meet Pokal\.gemini\antigravity\scratch\portfolio_research_oct2026\samples\all_market_history.parquet"
+BASE_DIR = Path(__file__).resolve().parent.parent
+PARQUET_PATH = str(BASE_DIR / "data" / "raw" / "all_market_history.parquet")
 
 def inspect():
     parquet_file = pq.ParquetFile(PARQUET_PATH)

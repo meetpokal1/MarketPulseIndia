@@ -50,6 +50,7 @@ flowchart TD
     E1 & E2 & E3 & E4 & E5 --> F["Streamlit Decision-Support UI<br/>dashboard/app.py"]
 ```
 
+- **Dataset Storage:** Localized under [`data/raw/all_market_history.parquet`](file:///C:/Users/Meet%20Pokal/.gemini/antigravity/scratch/MarketPulseIndia/data/raw/all_market_history.parquet) (8.19 MB, 1,481,324 rows, self-contained).
 - **Query Engine:** [DuckDB 2.0.0](file:///C:/Users/Meet%20Pokal/.gemini/antigravity/scratch/MarketPulseIndia/src/ingestion/loader.py) — zero-copy scans over 8.2MB compressed Parquet, sub-10ms query latency.
 - **DataFrames:** [Polars 2.0.0](file:///C:/Users/Meet%20Pokal/.gemini/antigravity/scratch/MarketPulseIndia/src/ingestion/loader.py) and [Pandas 3.1.0](file:///C:/Users/Meet%20Pokal/.gemini/antigravity/scratch/MarketPulseIndia/src/ingestion/loader.py).
 - **Econometrics:** [Statsmodels 0.15.0](file:///C:/Users/Meet%20Pokal/.gemini/antigravity/scratch/MarketPulseIndia/src/models/econometrics.py) & [SciPy 1.18.1](file:///C:/Users/Meet%20Pokal/.gemini/antigravity/scratch/MarketPulseIndia/src/models/econometrics.py) (Two-Way Demeaning, Cameron-Miller Cluster-Robust Standard Errors).

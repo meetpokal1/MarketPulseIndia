@@ -5,7 +5,7 @@
 - **Source System:** AGMARKNET (Agricultural Marketing Information Network), Directorate of Marketing & Inspection (DMI), Department of Agriculture & Farmers Welfare, Ministry of Agriculture & Farmers Welfare, Government of India.
 - **Official Portal:** https://agmarknet.gov.in
 - **Data Repository:** National Open Government Data (OGD) Platform India (https://data.gov.in).
-- **Snapshot File:** `all_market_history.parquet` (8,190,344 bytes compressed Parquet).
+- **Snapshot File:** `data/raw/all_market_history.parquet` (8,190,344 bytes compressed Parquet; SHA-256: `DA8E4435D7B63693C406401E0FA3B1F084FD1010F650598BA5030715A57ED6A4`).
 - **Retrieval & Compilation Date:** October 2026 snapshot.
 - **Coverage Span:** 30 August 2024 to 28 September 2026.
 - **Total Record Count:** **1,481,324 wholesale market-day observations**.

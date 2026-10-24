@@ -1,7 +1,7 @@
 # Data Dictionary — MarketPulse India
 
 ## 1. Raw AGMARKNET Dataset (`raw_history`)
-Source Parquet file: `portfolio_research_oct2026/samples/all_market_history.parquet`  
+Source Parquet file: `data/raw/all_market_history.parquet` (localized snapshot from AGMARKNET)
 Total Rows: **1,481,324**  
 Coverage Period: **30 August 2024 to 28 September 2026** (760 unique dates)  
 

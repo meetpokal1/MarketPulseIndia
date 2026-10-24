@@ -10,11 +10,11 @@ RAW_DATA_DIR = DATA_DIR / "raw"
 PROCESSED_DATA_DIR = DATA_DIR / "processed"
 SCREENSHOTS_DIR = BASE_DIR / "screenshots" / "runtime"
 
-# Source parquet files from portfolio research package
-SOURCE_SAMPLES_DIR = Path(r"C:\Users\Meet Pokal\.gemini\antigravity\scratch\portfolio_research_oct2026\samples")
-SOURCE_HISTORY_PARQUET = SOURCE_SAMPLES_DIR / "all_market_history.parquet"
-SOURCE_COVERAGE_PARQUET = SOURCE_SAMPLES_DIR / "all_market_coverage.parquet"
-SOURCE_LEDGER_PARQUET = SOURCE_SAMPLES_DIR / "source_quality_ledger.parquet"
+# Repository-local parquet dataset paths
+SOURCE_SAMPLES_DIR = RAW_DATA_DIR
+SOURCE_HISTORY_PARQUET = RAW_DATA_DIR / "all_market_history.parquet"
+SOURCE_COVERAGE_PARQUET = RAW_DATA_DIR / "all_market_coverage.parquet"
+SOURCE_LEDGER_PARQUET = RAW_DATA_DIR / "source_quality_ledger.parquet"
 
 # Unit definitions
 QUINTAL_TO_KG = 100.0

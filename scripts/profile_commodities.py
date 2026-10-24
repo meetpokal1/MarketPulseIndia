@@ -1,8 +1,11 @@
 import duckdb
 import sys
 
+from pathlib import Path
+
 sys.stdout.reconfigure(encoding='utf-8')
-PARQUET = r"C:\Users\Meet Pokal\.gemini\antigravity\scratch\portfolio_research_oct2026\samples\all_market_history.parquet"
+BASE_DIR = Path(__file__).resolve().parent.parent
+PARQUET = str(BASE_DIR / "data" / "raw" / "all_market_history.parquet")
 con = duckdb.connect()
 
 res = con.execute(f"""

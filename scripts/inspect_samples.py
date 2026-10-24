@@ -1,7 +1,9 @@
 import duckdb
 import os
+from pathlib import Path
 
-SAMPLES = r"C:\Users\Meet Pokal\.gemini\antigravity\scratch\portfolio_research_oct2026\samples"
+BASE_DIR = Path(__file__).resolve().parent.parent
+SAMPLES = str(BASE_DIR / "data" / "raw")
 con = duckdb.connect()
 
 for name in ['all_market_coverage.parquet', 'source_quality_ledger.parquet', 'market_history_sample.parquet']:
