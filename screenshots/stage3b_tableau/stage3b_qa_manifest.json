@@ -1,0 +1,113 @@
+{
+  "verified_at_utc": "2026-10-24T19:35:55Z",
+  "dashboards_validated": [
+    "Dashboard 1 - Market Pulse",
+    "Dashboard 2 - Spread Lab",
+    "Dashboard 3 - Arrival-Price Research",
+    "Dashboard 4 - Reliability Forensics"
+  ],
+  "metric_reconciliations": {
+    "dashboard1_market_pulse": {
+      "total_monthly_records": 77890,
+      "total_observed_rows_reconciled": 1481324,
+      "onion_months_analyzed": 26,
+      "onion_peak_month": "2024-11-01",
+      "onion_peak_mean_price": 5766.61,
+      "onion_min_month": "2026-04-01",
+      "onion_min_mean_price": 2017.45,
+      "state_wholesale_ranking": [
+        {
+          "state": "Maharashtra",
+          "state_mean_price": 1877.9141349480972,
+          "mandi_count": 110
+        },
+        {
+          "state": "Andhra Pradesh",
+          "state_mean_price": 2221.5125,
+          "mandi_count": 3
+        },
+        {
+          "state": "Karnataka",
+          "state_mean_price": 2302.107916666667,
+          "mandi_count": 47
+        },
+        {
+          "state": "Telangana",
+          "state_mean_price": 2417.317845528455,
+          "mandi_count": 25
+        },
+        {
+          "state": "Tamil Nadu",
+          "state_mean_price": 3916.5072836372024,
+          "mandi_count": 186
+        },
+        {
+          "state": "Kerala",
+          "state_mean_price": 4123.3912995338,
+          "mandi_count": 71
+        }
+      ]
+    },
+    "dashboard2_spread_lab": {
+      "lasalgaon_mumbai_matched_days": 507,
+      "mean_spread_quintal": -157.76,
+      "negative_spread_frequency_pct": 74.75,
+      "cultivar_confounded_days": 260,
+      "cultivar_confounded_mean_spread": -218.1,
+      "generic_tier_matched_days": 247,
+      "generic_tier_matched_mean_spread": -94.25,
+      "pune_mumbai_benchmark_mean_spread": 128.96
+    },
+    "dashboard3_arrival_price_research": {
+      "commodities_modeled": 14,
+      "onion_production_spec": {
+        "specification": "Two-Way Fixed Effects: log(price_it) = beta*log(arr_it) + alpha_i + gamma_t + eps_it",
+        "observations_N": 197941,
+        "market_clusters_G": 394,
+        "twfe_elasticity_beta": -0.036,
+        "cluster_robust_se": 0.0183,
+        "ci_95_bounds": [
+          -0.072,
+          -0.0001
+        ],
+        "price_response_minus_10pct_arrivals": 0.38
+      },
+      "robustness_spec_reconciliation": {
+        "strict_filter_spec": "N = 186,681, G = 360, Beta = -0.0471 (SE = 0.0206), Price Response (-10% arr) = +0.50%",
+        "full_panel_spec": "N = 197,941, G = 394, Beta = -0.0360 (SE = 0.0183), Price Response (-10% arr) = +0.38%",
+        "reconciliation_verdict": "Both specifications firmly reject folklore 35-50% price surge; empirical elasticity is bounded in [-0.0471, -0.0360]."
+      }
+    },
+    "dashboard4_reliability_forensics": {
+      "frozen_streaks_total": 27420,
+      "streaks_by_priority": {
+        "LOW NOTICE": 17877,
+        "MEDIUM REVIEW": 6680,
+        "HIGH REVIEW": 2863
+      },
+      "streaks_by_explanation": {
+        "Administrative Price Ceiling: Farmers market fixed daily price board.": 18967,
+        "Candidate Price Stickiness: Real price stability or infrequent auction revision.": 8082,
+        "MSP Statutory Procurement Quote: Consistent with government MSP procurement floor.": 220,
+        "Likely Reporting Inactivity: Stale price carried forward across reporting cycles.": 151
+      },
+      "max_streak_days": 518,
+      "quarantined_exceptions": 74,
+      "scale_errors_count": 70,
+      "zero_arrivals_count": 4,
+      "source_row_conservation": {
+        "total_raw": 1481324,
+        "valid_records": 1481250,
+        "scale_errors": 70,
+        "zero_arrivals": 4,
+        "conservation_sum_match": true
+      }
+    }
+  },
+  "screenshots_captured": [
+    "01_dashboard1_market_pulse.png",
+    "02_dashboard2_spread_lab.png",
+    "03_dashboard3_arrival_price_research.png",
+    "04_dashboard4_reliability_forensics.png"
+  ]
+}

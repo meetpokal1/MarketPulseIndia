@@ -5,8 +5,9 @@
 [![DuckDB](https://img.shields.io/badge/DuckDB-Analytical%20Engine-FFF000?logo=duckdb&logoColor=black)](https://duckdb.org)
 [![Polars](https://img.shields.io/badge/Polars-DataFrames-CD792C?logo=polars&logoColor=white)](https://pola.rs)
 [![Streamlit](https://img.shields.io/badge/Streamlit-Interactive%20UI-FF4B4B?logo=streamlit&logoColor=white)](https://streamlit.io)
-[![Tests](https://img.shields.io/badge/Tests-16%20Passed-10b981)](tests/)
+[![Tests](https://img.shields.io/badge/Tests-26%20Passed-10b981)](tests/)
 [![Data Integrity](https://img.shields.io/badge/Row%20Conservation-100%25-3b82f6)](documentation/METHODOLOGY.md)
+[![Tableau Public](https://img.shields.io/badge/Tableau%20Public-Packaged%20Workbook-E97627?logo=tableau&logoColor=white)](tableau/marketpulse_india.twbx)
 
 **MarketPulse India** is an investigative agricultural market intelligence platform built on **1,481,324 official AGMARKNET wholesale records** spanning August 2024 to September 2026 across 6 Indian states.
 
@@ -72,6 +73,29 @@ flowchart TD
 
 ---
 
+## 📈 Tableau Public Interactive Intelligence Deliverable
+
+In addition to the deep-dive research Streamlit interface, MarketPulse India includes an interactive **Tableau Public Multi-Dashboard Suite** built directly on normalized Stage 3A analytical data products.
+
+- **Packaged Workbook (.twbx):** [`tableau/marketpulse_india.twbx`](file:///C:/Users/Meet%20Pokal/.gemini/antigravity/scratch/MarketPulseIndia/tableau/marketpulse_india.twbx) (3.20 MB, self-contained with bundled extracts)
+- **Editable Workbook (.twb):** [`tableau/marketpulse_india.twb`](file:///C:/Users/Meet%20Pokal/.gemini/antigravity/scratch/MarketPulseIndia/tableau/marketpulse_india.twb) (29.8 KB, connected via relative paths)
+- **Data Contract & Extract Spec:** [`documentation/TABLEAU_DATA_CONTRACT.md`](file:///C:/Users/Meet%20Pokal/.gemini/antigravity/scratch/MarketPulseIndia/documentation/TABLEAU_DATA_CONTRACT.md)
+- **Extract Pipeline:** [`scripts/build_tableau_extract.py`](file:///C:/Users/Meet%20Pokal/.gemini/antigravity/scratch/MarketPulseIndia/scripts/build_tableau_extract.py) (extracts 6 normalized datasets in 7.5s)
+- **Visual QA Evidence:** [`screenshots/stage3b_tableau/`](file:///C:/Users/Meet%20Pokal/.gemini/antigravity/scratch/MarketPulseIndia/screenshots/stage3b_tableau/) (`01_dashboard1_market_pulse.png`, `02_dashboard2_spread_lab.png`, `03_dashboard3_arrival_price_research.png`, `04_dashboard4_reliability_forensics.png`)
+
+### The Four Investigative Dashboards:
+1. **Dashboard 1: Market Pulse (Monthly Mandi Intelligence):** Monthly wholesale price movements, P25–P75 interquartile uncertainty bands, 6-state price rankings, and arrival volume tracking across 77,890 mandi-month records.
+2. **Dashboard 2: Spread Lab (Spatial Arbitrage & Variety Confounding):** Re-examines the 507-day Lasalgaon–Mumbai price spread (−₹157.76/Qtl mean spread, 74.75% negative days). Demonstrates that apparent spread inversion is driven by variety reporting heterogeneity (Lasalgaon reporting export cultivars Unhali/Red at −₹218/Qtl spread vs generic Other at −₹94/Qtl).
+3. **Dashboard 3: Arrival–Price Research (Econometric Elasticity Panel):** Two-Way Fixed Effects demeaning with Cameron–Miller cluster-robust standard errors across 14 commodities. Confirms bounded inelasticity ($eta \in [-0.0471, -0.0360]$), refuting popular folk claims of a 35–50% price surge.
+4. **Dashboard 4: Reliability Forensics (Reporting Behavior & Quality Assurance):** Full forensic breakdown of 27,420 frozen price streaks (≥7 days), distinguishing MSP statutory procurement pegging (Telangana Paddy) from administrative price ceilings (Tamil Nadu *Uzhavar Sandhai*) and reporting inactivity. Reconciles 100% row conservation (1,481,250 valid + 70 scale errors + 4 zero arrivals = 1,481,324 total).
+
+### Econometric Specification Reconciliation:
+- **Specification 1 (Full UI Panel / Primary Production Model):** $N = 197,941$ observations, $G = 394$ mandis, $eta = -0.0360$ (Cluster SE: $0.0183$, $t = -1.97$, $p < 0.05$). Implied price response for a $-10\%$ arrival dip: **+0.38%**.
+- **Specification 2 (Strict / Trimmed Robustness Model):** $N = 186,681$ observations, $G = 360$ mandis, $eta = -0.0471$ (Cluster SE: $0.0206$, $t = -2.29$, $p < 0.05$). Implied price response for a $-10\%$ arrival dip: **+0.50%**.
+- **Conclusion:** Both specifications firmly reject the folklore 35–50% price surge claim, consistently bounding the true elasticity between $-0.0360$ and $-0.0471$.
+
+---
+
 ## 🧪 Testing & Verification
 
 Run the full automated test suite:
@@ -98,7 +122,16 @@ tests/test_reliability.py::test_state_flat_quote_rate_divergence PASSED
 tests/test_volatility.py::test_commodity_volatility_rankings PASSED
 tests/test_volatility.py::test_market_time_series_volatility_and_shocks PASSED
 
-============================= 16 passed in 5.07s =============================
+tests/test_tableau_extract.py::test_source_dataset_integrity PASSED
+tests/test_tableau_extract.py::test_manifest_structure_and_hashes PASSED
+tests/test_tableau_extract.py::test_market_monthly_key_uniqueness PASSED
+tests/test_tableau_extract.py::test_corridor_spread_daily_reproduces_lasalgaon_mumbai_inversion PASSED
+tests/test_tableau_extract.py::test_arrival_elasticity_models_reconciliation PASSED
+tests/test_tableau_extract.py::test_frozen_price_streaks_threshold_and_reconciliation PASSED
+tests/test_tableau_extract.py::test_quality_exceptions_row_conservation PASSED
+tests/test_tableau_extract.py::test_quality_monthly_summary_conservation PASSED
+
+============================= 26 passed in 5.38s =============================
 ```
 
 Run Playwright automated UI validation:
