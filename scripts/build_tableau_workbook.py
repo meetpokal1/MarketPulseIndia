@@ -1,64 +1,57 @@
 #!/usr/bin/env python3
 """
-MarketPulse India - Tableau Workbook Generator (Stage 3B)
+MarketPulse India - Tableau Workbook Generator (Stage 3B Schema Hardened)
 
-Generates:
-  1. tableau/marketpulse_india.twb   (Editable Tableau XML workbook)
-  2. tableau/marketpulse_india.twbx  (Self-contained packaged workbook with bundled data)
+Generates schema-compliant Tableau Public 18.1 workbooks:
+  1. tableau/marketpulse_india.twb   (Editable XML workbook)
+  2. tableau/marketpulse_india.twbx  (Packaged workbook with bundled Data/ extracts)
 
-Dashboards Built:
-  - Dashboard 1: Market Pulse (Monthly Mandi Intelligence)
-  - Dashboard 2: Spread Lab (Spatial Price Disparities & Variety Confounding)
-  - Dashboard 3: Arrival-Price Research (Econometric Elasticity & TWFE Panel)
-  - Dashboard 4: Reliability Forensics (Reporting Behavior & Data Assurance)
+Strictly satisfies Tableau's XSD content models:
+  - Worksheet table: (view, style, panes, mark-layout?, rows, cols, ...)
+  - View: (datasources?, mapsources?, datasource-dependencies*, ..., aggregation)
+  - Datasource-dependencies: column must have datatype, name, role, type
+  - Worksheet: (..., table, simple-id)
+  - Dashboard: (style, size?, datasources, datasource-dependencies*, zones, devicelayouts, simple-id)
 """
 
-import os
 import sys
+import uuid
 import zipfile
-import shutil
 from pathlib import Path
-import xml.etree.ElementTree as ET
-from xml.dom import minidom
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 PROCESSED_DATA_DIR = BASE_DIR / "data" / "processed" / "tableau"
 TABLEAU_DIR = BASE_DIR / "tableau"
 
 
+def gen_uuid():
+    return f"{{{str(uuid.uuid4()).upper()}}}"
+
+
 def create_workbook_xml(is_packaged: bool = False) -> str:
-    """Generate professional, fully structured Tableau Public XML workbook."""
-    
-    # Path prefix for data sources
-    # In .twbx, data files are located in Data/ relative to the workbook
-    # In .twb, data files are located in ../data/processed/tableau/
+    """Generate schema-perfect Tableau Public XML workbook."""
     data_dir_rel = "Data" if is_packaged else "../data/processed/tableau"
 
-    xml_lines = [
+    xml = [
         "<?xml version='1.0' encoding='utf-8' ?>",
-        "<workbook original-version='18.1' source-build='2026.2.26.0912.1023' version='18.1' xmlns:user='http://www.tableausoftware.com/xml/user'>",
+        "<!-- build 20262.26.0912.1023 -->",
+        "<workbook original-version='18.1' source-build='2026.2.3 (20262.26.0912.1023)' source-platform='win' version='18.1' xmlns:user='http://www.tableausoftware.com/xml/user'>",
         "  <document-format-change-manifest>",
         "    <AccessibleZoneTabOrder />",
+        "    <AnimationOnByDefault />",
         "    <IntuitiveSorting />",
-        "    <MapboxVectorStylesAndLayers />",
+        "    <MarkAnimation />",
+        "    <ObjectModelEncapsulateLegacy />",
+        "    <ObjectModelExtractV2 />",
+        "    <ObjectModelTableType />",
+        "    <SchemaViewerObjectModel />",
         "    <SheetIdentifierTracking />",
+        "    <VConnDownstreamExtractsWithWarnings />",
         "    <WindowsPersistSimpleIdentifiers />",
         "  </document-format-change-manifest>",
         "  <preferences>",
-        "    <color-palette name='MarketPulse Divergent' type='ordered-diverging'>",
-        "      <color>#e11d48</color>",  # Crimson / Negative Spread
-        "      <color>#fca5a5</color>",
-        "      <color>#e2e8f0</color>",  # Neutral Zero
-        "      <color>#6ee7b7</color>",
-        "      <color>#059669</color>",  # Emerald / Positive Spread
-        "    </color-palette>",
-        "    <color-palette name='MarketPulse Slate' type='regular'>",
-        "      <color>#0f172a</color>",
-        "      <color>#0284c7</color>",
-        "      <color>#0d9488</color>",
-        "      <color>#f59e0b</color>",
-        "      <color>#e11d48</color>",
-        "    </color-palette>",
+        "    <preference name='ui.encoding.shelf.height' value='24' />",
+        "    <preference name='ui.shelf.height' value='26' />",
         "  </preferences>",
         "  <datasources>",
     ]
@@ -66,7 +59,7 @@ def create_workbook_xml(is_packaged: bool = False) -> str:
     # --------------------------------------------------------------------------
     # Datasource 1: Market Monthly
     # --------------------------------------------------------------------------
-    xml_lines.extend([
+    xml.extend([
         "    <datasource caption='Market Monthly Intelligence' inline='true' name='ds_market_monthly' version='18.1'>",
         "      <connection class='federated'>",
         "        <named-connections>",
@@ -104,49 +97,25 @@ def create_workbook_xml(is_packaged: bool = False) -> str:
         "            <column datatype='string' name='dominant_variety_tier' ordinal='25' />",
         "          </columns>",
         "        </relation>",
-        "        <metadata-records>",
-        "          <metadata-record class='column'>",
-        "            <remote-name>commodity</remote-name>",
-        "            <remote-type>129</remote-type>",
-        "            <local-name>[commodity]</local-name>",
-        "            <parent-name>[market_monthly.csv]</parent-name>",
-        "            <remote-alias>commodity</remote-alias>",
-        "            <ordinal>7</ordinal>",
-        "            <local-type>string</local-type>",
-        "            <aggregation>Count</aggregation>",
-        "            <contains-null>true</contains-null>",
-        "          </metadata-record>",
-        "          <metadata-record class='column'>",
-        "            <remote-name>mean_daily_modal_price_rs_per_quintal</remote-name>",
-        "            <remote-type>5</remote-type>",
-        "            <local-name>[mean_daily_modal_price_rs_per_quintal]</local-name>",
-        "            <parent-name>[market_monthly.csv]</parent-name>",
-        "            <remote-alias>mean_daily_modal_price_rs_per_quintal</remote-alias>",
-        "            <ordinal>10</ordinal>",
-        "            <local-type>real</local-type>",
-        "            <aggregation>Avg</aggregation>",
-        "            <contains-null>true</contains-null>",
-        "          </metadata-record>",
-        "        </metadata-records>",
         "      </connection>",
         "      <aliases enabled='yes' />",
         "      <column caption='Commodity' datatype='string' name='[commodity]' role='dimension' type='nominal' />",
         "      <column caption='State' datatype='string' name='[state]' role='dimension' type='nominal' />",
         "      <column caption='APMC Mandi' datatype='string' name='[canonical_market_name]' role='dimension' type='nominal' />",
-        "      <column caption='Month Start' datatype='date' name='[month_start_date]' role='dimension' type='ordinal' />",
+        "      <column caption='Month Start Date' datatype='date' name='[month_start_date]' role='dimension' type='ordinal' />",
         "      <column caption='Mean Modal Price (₹/Qtl)' datatype='real' name='[mean_daily_modal_price_rs_per_quintal]' role='measure' type='quantitative' />",
-        "      <column caption='Median Price (₹/Qtl)' datatype='real' name='[median_daily_modal_price_rs_per_quintal]' role='measure' type='quantitative' />",
-        "      <column caption='IQR 25th Pct (₹/Qtl)' datatype='real' name='[p25_daily_modal_price_rs_per_quintal]' role='measure' type='quantitative' />",
-        "      <column caption='IQR 75th Pct (₹/Qtl)' datatype='real' name='[p75_daily_modal_price_rs_per_quintal]' role='measure' type='quantitative' />",
+        "      <column caption='Median Modal Price (₹/Qtl)' datatype='real' name='[median_daily_modal_price_rs_per_quintal]' role='measure' type='quantitative' />",
+        "      <column caption='P25 Price (₹/Qtl)' datatype='real' name='[p25_daily_modal_price_rs_per_quintal]' role='measure' type='quantitative' />",
+        "      <column caption='P75 Price (₹/Qtl)' datatype='real' name='[p75_daily_modal_price_rs_per_quintal]' role='measure' type='quantitative' />",
         "      <column caption='Total Arrivals (MT)' datatype='real' name='[total_arrivals_tonnes]' role='measure' type='quantitative' />",
-        "      <column caption='Observed Records' datatype='integer' name='[observed_records_count]' role='measure' type='quantitative' />",
+        "      <column caption='Observed Records Count' datatype='integer' name='[observed_records_count]' role='measure' type='quantitative' />",
         "    </datasource>",
     ])
 
     # --------------------------------------------------------------------------
     # Datasource 2: Corridor Spread Daily
     # --------------------------------------------------------------------------
-    xml_lines.extend([
+    xml.extend([
         "    <datasource caption='Corridor Spread Daily' inline='true' name='ds_corridor_spread' version='18.1'>",
         "      <connection class='federated'>",
         "        <named-connections>",
@@ -188,18 +157,18 @@ def create_workbook_xml(is_packaged: bool = False) -> str:
         "      <column caption='Corridor Name' datatype='string' name='[corridor_name]' role='dimension' type='nominal' />",
         "      <column caption='Observation Date' datatype='date' name='[date]' role='dimension' type='ordinal' />",
         "      <column caption='Price Spread (₹/Qtl)' datatype='real' name='[price_spread_quintal]' role='measure' type='quantitative' />",
-        "      <column caption='Spread Pct (%)' datatype='real' name='[spread_pct]' role='measure' type='quantitative' />",
-        "      <column caption='Origin Price (₹/Qtl)' datatype='real' name='[source_price]' role='measure' type='quantitative' />",
-        "      <column caption='Destination Price (₹/Qtl)' datatype='real' name='[dest_price]' role='measure' type='quantitative' />",
-        "      <column caption='Variety Comparability' datatype='string' name='[variety_comparability_status]' role='dimension' type='nominal' />",
-        "      <column caption='Apparent Inversion' datatype='boolean' name='[apparent_inversion_flag]' role='dimension' type='nominal' />",
+        "      <column caption='Spread Percentage (%)' datatype='real' name='[spread_pct]' role='measure' type='quantitative' />",
+        "      <column caption='Origin Modal Price (₹/Qtl)' datatype='real' name='[source_price]' role='measure' type='quantitative' />",
+        "      <column caption='Destination Modal Price (₹/Qtl)' datatype='real' name='[dest_price]' role='measure' type='quantitative' />",
+        "      <column caption='Variety Comparability Status' datatype='string' name='[variety_comparability_status]' role='dimension' type='nominal' />",
+        "      <column caption='Apparent Inversion Flag' datatype='boolean' name='[apparent_inversion_flag]' role='dimension' type='nominal' />",
         "    </datasource>",
     ])
 
     # --------------------------------------------------------------------------
     # Datasource 3: Arrival Elasticity Models
     # --------------------------------------------------------------------------
-    xml_lines.extend([
+    xml.extend([
         "    <datasource caption='Arrival Elasticity Models' inline='true' name='ds_elasticity_models' version='18.1'>",
         "      <connection class='federated'>",
         "        <named-connections>",
@@ -241,11 +210,11 @@ def create_workbook_xml(is_packaged: bool = False) -> str:
         "      <aliases enabled='yes' />",
         "      <column caption='Commodity' datatype='string' name='[commodity]' role='dimension' type='nominal' />",
         "      <column caption='Estimated Elasticity (β)' datatype='real' name='[estimated_elasticity_beta]' role='measure' type='quantitative' />",
-        "      <column caption='95% CI Lower' datatype='real' name='[ci_95_lower]' role='measure' type='quantitative' />",
-        "      <column caption='95% CI Upper' datatype='real' name='[ci_95_upper]' role='measure' type='quantitative' />",
+        "      <column caption='95% CI Lower Bound' datatype='real' name='[ci_95_lower]' role='measure' type='quantitative' />",
+        "      <column caption='95% CI Upper Bound' datatype='real' name='[ci_95_upper]' role='measure' type='quantitative' />",
         "      <column caption='Cluster-Robust SE' datatype='real' name='[cluster_robust_se]' role='measure' type='quantitative' />",
-        "      <column caption='Price Impact (-10% Arrivals)' datatype='real' name='[price_response_pct_for_minus_10pct_arrivals]' role='measure' type='quantitative' />",
-        "      <column caption='Observations (N)' datatype='integer' name='[n_observations]' role='measure' type='quantitative' />",
+        "      <column caption='Price Impact for -10% Arrivals (%)' datatype='real' name='[price_response_pct_for_minus_10pct_arrivals]' role='measure' type='quantitative' />",
+        "      <column caption='Sample Size (N)' datatype='integer' name='[n_observations]' role='measure' type='quantitative' />",
         "      <column caption='Market Clusters (G)' datatype='integer' name='[n_market_clusters]' role='measure' type='quantitative' />",
         "      <column caption='Within R²' datatype='real' name='[within_r2]' role='measure' type='quantitative' />",
         "    </datasource>",
@@ -254,7 +223,7 @@ def create_workbook_xml(is_packaged: bool = False) -> str:
     # --------------------------------------------------------------------------
     # Datasource 4: Frozen Price Streaks & Reliability Forensics
     # --------------------------------------------------------------------------
-    xml_lines.extend([
+    xml.extend([
         "    <datasource caption='Frozen Price Streaks' inline='true' name='ds_frozen_streaks' version='18.1'>",
         "      <connection class='federated'>",
         "        <named-connections>",
@@ -282,300 +251,387 @@ def create_workbook_xml(is_packaged: bool = False) -> str:
         "        </relation>",
         "      </connection>",
         "      <aliases enabled='yes' />",
-        "      <column caption='Streak Days' datatype='integer' name='[streak_days]' role='measure' type='quantitative' />",
+        "      <column caption='Streak Duration (Days)' datatype='integer' name='[streak_days]' role='measure' type='quantitative' />",
         "      <column caption='Plausible Explanation' datatype='string' name='[plausible_explanation]' role='dimension' type='nominal' />",
-        "      <column caption='Audit Priority' datatype='string' name='[audit_priority]' role='dimension' type='nominal' />",
+        "      <column caption='Audit Review Priority' datatype='string' name='[audit_priority]' role='dimension' type='nominal' />",
         "      <column caption='State' datatype='string' name='[state]' role='dimension' type='nominal' />",
-        "      <column caption='Mandi' datatype='string' name='[canonical_market_name]' role='dimension' type='nominal' />",
+        "      <column caption='APMC Mandi' datatype='string' name='[canonical_market_name]' role='dimension' type='nominal' />",
         "      <column caption='Commodity' datatype='string' name='[commodity]' role='dimension' type='nominal' />",
         "      <column caption='Frozen Price (₹/Qtl)' datatype='real' name='[frozen_modal_price_rs_per_quintal]' role='measure' type='quantitative' />",
         "    </datasource>",
     ])
 
-    xml_lines.append("  </datasources>")
+    xml.append("  </datasources>")
 
     # --------------------------------------------------------------------------
-    # Worksheets Definition
+    # Worksheets Definition (Fully Schema-Compliant)
+    # Content Model: (((layout-options?)|(repository-location?)),table,simple-id)
+    # Table Content Model: (view,style,panes,mark-layout?,rows,cols,...)
+    # View Content Model: (datasources?,mapsources?,datasource-dependencies*,filter?,sort?,perspectives?,rows?,columns?,slices?,aggregation)
     # --------------------------------------------------------------------------
-    xml_lines.extend([
+    xml.extend([
         "  <worksheets>",
+        # Worksheet 1: Price Trends
         "    <worksheet name='w_price_trends'>",
         "      <table>",
         "        <view>",
         "          <datasources>",
-        "            <datasource name='ds_market_monthly' />",
+        "            <datasource caption='Market Monthly Intelligence' name='ds_market_monthly' />",
         "          </datasources>",
         "          <datasource-dependencies datasource='ds_market_monthly'>",
-        "            <column name='[commodity]' role='dimension' type='nominal' />",
-        "            <column name='[month_start_date]' role='dimension' type='ordinal' />",
-        "            <column name='[mean_daily_modal_price_rs_per_quintal]' role='measure' type='quantitative' />",
+        "            <column caption='Commodity' datatype='string' name='[commodity]' role='dimension' type='nominal' />",
+        "            <column-instance column='[commodity]' derivation='None' name='[none:commodity:nk]' pivot='key' type='nominal' />",
+        "            <column caption='Month Start Date' datatype='date' name='[month_start_date]' role='dimension' type='ordinal' />",
+        "            <column-instance column='[month_start_date]' derivation='None' name='[none:month_start_date:qk]' pivot='key' type='quantitative' />",
+        "            <column caption='Mean Modal Price (₹/Qtl)' datatype='real' name='[mean_daily_modal_price_rs_per_quintal]' role='measure' type='quantitative' />",
+        "            <column-instance column='[mean_daily_modal_price_rs_per_quintal]' derivation='Avg' name='[avg:mean_daily_modal_price_rs_per_quintal:qk]' pivot='key' type='quantitative' />",
         "          </datasource-dependencies>",
+        "          <aggregation value='true' />",
         "        </view>",
+        "        <style />",
         "        <panes>",
         "          <pane selection-relaxation-option='selection-relaxation-allow'>",
         "            <view><breakdown value='auto' /></view>",
         "            <mark class='Line' />",
         "            <encodings>",
-        "              <color column='[ds_market_monthly].[commodity]' />",
+        "              <color column='[ds_market_monthly].[none:commodity:nk]' />",
         "            </encodings>",
         "          </pane>",
         "        </panes>",
-        "        <rows>[ds_market_monthly].[mean_daily_modal_price_rs_per_quintal]</rows>",
-        "        <cols>[ds_market_monthly].[month_start_date]</cols>",
+        "        <rows>[ds_market_monthly].[avg:mean_daily_modal_price_rs_per_quintal:qk]</rows>",
+        "        <cols>[ds_market_monthly].[none:month_start_date:qk]</cols>",
         "      </table>",
+        f"      <simple-id uuid='{gen_uuid()}' />",
         "    </worksheet>",
 
+        # Worksheet 2: State Comparison
         "    <worksheet name='w_state_comparison'>",
         "      <table>",
         "        <view>",
         "          <datasources>",
-        "            <datasource name='ds_market_monthly' />",
+        "            <datasource caption='Market Monthly Intelligence' name='ds_market_monthly' />",
         "          </datasources>",
         "          <datasource-dependencies datasource='ds_market_monthly'>",
-        "            <column name='[state]' role='dimension' type='nominal' />",
-        "            <column name='[mean_daily_modal_price_rs_per_quintal]' role='measure' type='quantitative' />",
+        "            <column caption='State' datatype='string' name='[state]' role='dimension' type='nominal' />",
+        "            <column-instance column='[state]' derivation='None' name='[none:state:nk]' pivot='key' type='nominal' />",
+        "            <column caption='Mean Modal Price (₹/Qtl)' datatype='real' name='[mean_daily_modal_price_rs_per_quintal]' role='measure' type='quantitative' />",
+        "            <column-instance column='[mean_daily_modal_price_rs_per_quintal]' derivation='Avg' name='[avg:mean_daily_modal_price_rs_per_quintal:qk]' pivot='key' type='quantitative' />",
         "          </datasource-dependencies>",
+        "          <aggregation value='true' />",
         "        </view>",
+        "        <style />",
         "        <panes>",
         "          <pane selection-relaxation-option='selection-relaxation-allow'>",
         "            <view><breakdown value='auto' /></view>",
         "            <mark class='Bar' />",
         "          </pane>",
         "        </panes>",
-        "        <rows>[ds_market_monthly].[state]</rows>",
-        "        <cols>[ds_market_monthly].[mean_daily_modal_price_rs_per_quintal]</cols>",
+        "        <rows>[ds_market_monthly].[none:state:nk]</rows>",
+        "        <cols>[ds_market_monthly].[avg:mean_daily_modal_price_rs_per_quintal:qk]</cols>",
         "      </table>",
+        f"      <simple-id uuid='{gen_uuid()}' />",
         "    </worksheet>",
 
+        # Worksheet 3: Corridor Spread Timeline
         "    <worksheet name='w_corridor_spread_timeline'>",
         "      <table>",
         "        <view>",
         "          <datasources>",
-        "            <datasource name='ds_corridor_spread' />",
+        "            <datasource caption='Corridor Spread Daily' name='ds_corridor_spread' />",
         "          </datasources>",
         "          <datasource-dependencies datasource='ds_corridor_spread'>",
-        "            <column name='[date]' role='dimension' type='ordinal' />",
-        "            <column name='[price_spread_quintal]' role='measure' type='quantitative' />",
-        "            <column name='[variety_comparability_status]' role='dimension' type='nominal' />",
+        "            <column caption='Observation Date' datatype='date' name='[date]' role='dimension' type='ordinal' />",
+        "            <column-instance column='[date]' derivation='None' name='[none:date:qk]' pivot='key' type='quantitative' />",
+        "            <column caption='Price Spread (₹/Qtl)' datatype='real' name='[price_spread_quintal]' role='measure' type='quantitative' />",
+        "            <column-instance column='[price_spread_quintal]' derivation='Avg' name='[avg:price_spread_quintal:qk]' pivot='key' type='quantitative' />",
+        "            <column caption='Variety Comparability Status' datatype='string' name='[variety_comparability_status]' role='dimension' type='nominal' />",
+        "            <column-instance column='[variety_comparability_status]' derivation='None' name='[none:variety_comparability_status:nk]' pivot='key' type='nominal' />",
         "          </datasource-dependencies>",
+        "          <aggregation value='true' />",
         "        </view>",
+        "        <style />",
         "        <panes>",
         "          <pane selection-relaxation-option='selection-relaxation-allow'>",
         "            <view><breakdown value='auto' /></view>",
         "            <mark class='Line' />",
         "            <encodings>",
-        "              <color column='[ds_corridor_spread].[variety_comparability_status]' />",
+        "              <color column='[ds_corridor_spread].[none:variety_comparability_status:nk]' />",
         "            </encodings>",
         "          </pane>",
         "        </panes>",
-        "        <rows>[ds_corridor_spread].[price_spread_quintal]</rows>",
-        "        <cols>[ds_corridor_spread].[date]</cols>",
+        "        <rows>[ds_corridor_spread].[avg:price_spread_quintal:qk]</rows>",
+        "        <cols>[ds_corridor_spread].[none:date:qk]</cols>",
         "      </table>",
+        f"      <simple-id uuid='{gen_uuid()}' />",
         "    </worksheet>",
 
+        # Worksheet 4: Corridor Spread Distribution
         "    <worksheet name='w_corridor_spread_hist'>",
         "      <table>",
         "        <view>",
         "          <datasources>",
-        "            <datasource name='ds_corridor_spread' />",
+        "            <datasource caption='Corridor Spread Daily' name='ds_corridor_spread' />",
         "          </datasources>",
         "          <datasource-dependencies datasource='ds_corridor_spread'>",
-        "            <column name='[corridor_name]' role='dimension' type='nominal' />",
-        "            <column name='[price_spread_quintal]' role='measure' type='quantitative' />",
+        "            <column caption='Corridor Name' datatype='string' name='[corridor_name]' role='dimension' type='nominal' />",
+        "            <column-instance column='[corridor_name]' derivation='None' name='[none:corridor_name:nk]' pivot='key' type='nominal' />",
+        "            <column caption='Price Spread (₹/Qtl)' datatype='real' name='[price_spread_quintal]' role='measure' type='quantitative' />",
+        "            <column-instance column='[price_spread_quintal]' derivation='Avg' name='[avg:price_spread_quintal:qk]' pivot='key' type='quantitative' />",
         "          </datasource-dependencies>",
+        "          <aggregation value='true' />",
         "        </view>",
+        "        <style />",
         "        <panes>",
         "          <pane selection-relaxation-option='selection-relaxation-allow'>",
         "            <view><breakdown value='auto' /></view>",
         "            <mark class='Bar' />",
         "          </pane>",
         "        </panes>",
-        "        <rows>[ds_corridor_spread].[corridor_name]</rows>",
-        "        <cols>[ds_corridor_spread].[price_spread_quintal]</cols>",
+        "        <rows>[ds_corridor_spread].[none:corridor_name:nk]</rows>",
+        "        <cols>[ds_corridor_spread].[avg:price_spread_quintal:qk]</cols>",
         "      </table>",
+        f"      <simple-id uuid='{gen_uuid()}' />",
         "    </worksheet>",
 
+        # Worksheet 5: Elasticity Forest Plot
         "    <worksheet name='w_elasticity_forest_plot'>",
         "      <table>",
         "        <view>",
         "          <datasources>",
-        "            <datasource name='ds_elasticity_models' />",
+        "            <datasource caption='Arrival Elasticity Models' name='ds_elasticity_models' />",
         "          </datasources>",
         "          <datasource-dependencies datasource='ds_elasticity_models'>",
-        "            <column name='[commodity]' role='dimension' type='nominal' />",
-        "            <column name='[estimated_elasticity_beta]' role='measure' type='quantitative' />",
+        "            <column caption='Commodity' datatype='string' name='[commodity]' role='dimension' type='nominal' />",
+        "            <column-instance column='[commodity]' derivation='None' name='[none:commodity:nk]' pivot='key' type='nominal' />",
+        "            <column caption='Estimated Elasticity (β)' datatype='real' name='[estimated_elasticity_beta]' role='measure' type='quantitative' />",
+        "            <column-instance column='[estimated_elasticity_beta]' derivation='Avg' name='[avg:estimated_elasticity_beta:qk]' pivot='key' type='quantitative' />",
         "          </datasource-dependencies>",
+        "          <aggregation value='true' />",
         "        </view>",
+        "        <style />",
         "        <panes>",
         "          <pane selection-relaxation-option='selection-relaxation-allow'>",
         "            <view><breakdown value='auto' /></view>",
         "            <mark class='Circle' />",
         "          </pane>",
         "        </panes>",
-        "        <rows>[ds_elasticity_models].[commodity]</rows>",
-        "        <cols>[ds_elasticity_models].[estimated_elasticity_beta]</cols>",
+        "        <rows>[ds_elasticity_models].[none:commodity:nk]</rows>",
+        "        <cols>[ds_elasticity_models].[avg:estimated_elasticity_beta:qk]</cols>",
         "      </table>",
+        f"      <simple-id uuid='{gen_uuid()}' />",
         "    </worksheet>",
 
+        # Worksheet 6: Elasticity Shock Response
         "    <worksheet name='w_elasticity_shock_response'>",
         "      <table>",
         "        <view>",
         "          <datasources>",
-        "            <datasource name='ds_elasticity_models' />",
+        "            <datasource caption='Arrival Elasticity Models' name='ds_elasticity_models' />",
         "          </datasources>",
         "          <datasource-dependencies datasource='ds_elasticity_models'>",
-        "            <column name='[commodity]' role='dimension' type='nominal' />",
-        "            <column name='[price_response_pct_for_minus_10pct_arrivals]' role='measure' type='quantitative' />",
+        "            <column caption='Commodity' datatype='string' name='[commodity]' role='dimension' type='nominal' />",
+        "            <column-instance column='[commodity]' derivation='None' name='[none:commodity:nk]' pivot='key' type='nominal' />",
+        "            <column caption='Price Impact for -10% Arrivals (%)' datatype='real' name='[price_response_pct_for_minus_10pct_arrivals]' role='measure' type='quantitative' />",
+        "            <column-instance column='[price_response_pct_for_minus_10pct_arrivals]' derivation='Avg' name='[avg:price_response_pct_for_minus_10pct_arrivals:qk]' pivot='key' type='quantitative' />",
         "          </datasource-dependencies>",
+        "          <aggregation value='true' />",
         "        </view>",
+        "        <style />",
         "        <panes>",
         "          <pane selection-relaxation-option='selection-relaxation-allow'>",
         "            <view><breakdown value='auto' /></view>",
         "            <mark class='Bar' />",
         "          </pane>",
         "        </panes>",
-        "        <rows>[ds_elasticity_models].[commodity]</rows>",
-        "        <cols>[ds_elasticity_models].[price_response_pct_for_minus_10pct_arrivals]</cols>",
+        "        <rows>[ds_elasticity_models].[none:commodity:nk]</rows>",
+        "        <cols>[ds_elasticity_models].[avg:price_response_pct_for_minus_10pct_arrivals:qk]</cols>",
         "      </table>",
+        f"      <simple-id uuid='{gen_uuid()}' />",
         "    </worksheet>",
 
+        # Worksheet 7: Frozen Streak Duration Distribution
         "    <worksheet name='w_frozen_streak_distribution'>",
         "      <table>",
         "        <view>",
         "          <datasources>",
-        "            <datasource name='ds_frozen_streaks' />",
+        "            <datasource caption='Frozen Price Streaks' name='ds_frozen_streaks' />",
         "          </datasources>",
         "          <datasource-dependencies datasource='ds_frozen_streaks'>",
-        "            <column name='[audit_priority]' role='dimension' type='nominal' />",
-        "            <column name='[streak_days]' role='measure' type='quantitative' />",
+        "            <column caption='Audit Review Priority' datatype='string' name='[audit_priority]' role='dimension' type='nominal' />",
+        "            <column-instance column='[audit_priority]' derivation='None' name='[none:audit_priority:nk]' pivot='key' type='nominal' />",
+        "            <column caption='Streak Duration (Days)' datatype='integer' name='[streak_days]' role='measure' type='quantitative' />",
+        "            <column-instance column='[streak_days]' derivation='Sum' name='[sum:streak_days:qk]' pivot='key' type='quantitative' />",
         "          </datasource-dependencies>",
+        "          <aggregation value='true' />",
         "        </view>",
+        "        <style />",
         "        <panes>",
         "          <pane selection-relaxation-option='selection-relaxation-allow'>",
         "            <view><breakdown value='auto' /></view>",
         "            <mark class='Bar' />",
         "          </pane>",
         "        </panes>",
-        "        <rows>[ds_frozen_streaks].[audit_priority]</rows>",
-        "        <cols>[ds_frozen_streaks].[streak_days]</cols>",
+        "        <rows>[ds_frozen_streaks].[none:audit_priority:nk]</rows>",
+        "        <cols>[ds_frozen_streaks].[sum:streak_days:qk]</cols>",
         "      </table>",
+        f"      <simple-id uuid='{gen_uuid()}' />",
         "    </worksheet>",
 
+        # Worksheet 8: Frozen Explanations
         "    <worksheet name='w_frozen_explanation_pie'>",
         "      <table>",
         "        <view>",
         "          <datasources>",
-        "            <datasource name='ds_frozen_streaks' />",
+        "            <datasource caption='Frozen Price Streaks' name='ds_frozen_streaks' />",
         "          </datasources>",
         "          <datasource-dependencies datasource='ds_frozen_streaks'>",
-        "            <column name='[plausible_explanation]' role='dimension' type='nominal' />",
-        "            <column name='[streak_days]' role='measure' type='quantitative' />",
+        "            <column caption='Plausible Explanation' datatype='string' name='[plausible_explanation]' role='dimension' type='nominal' />",
+        "            <column-instance column='[plausible_explanation]' derivation='None' name='[none:plausible_explanation:nk]' pivot='key' type='nominal' />",
+        "            <column caption='Streak Duration (Days)' datatype='integer' name='[streak_days]' role='measure' type='quantitative' />",
+        "            <column-instance column='[streak_days]' derivation='Sum' name='[sum:streak_days:qk]' pivot='key' type='quantitative' />",
         "          </datasource-dependencies>",
+        "          <aggregation value='true' />",
         "        </view>",
+        "        <style />",
         "        <panes>",
         "          <pane selection-relaxation-option='selection-relaxation-allow'>",
         "            <view><breakdown value='auto' /></view>",
         "            <mark class='Bar' />",
         "          </pane>",
         "        </panes>",
-        "        <rows>[ds_frozen_streaks].[plausible_explanation]</rows>",
-        "        <cols>[ds_frozen_streaks].[streak_days]</cols>",
+        "        <rows>[ds_frozen_streaks].[none:plausible_explanation:nk]</rows>",
+        "        <cols>[ds_frozen_streaks].[sum:streak_days:qk]</cols>",
         "      </table>",
+        f"      <simple-id uuid='{gen_uuid()}' />",
         "    </worksheet>",
         "  </worksheets>",
     ])
 
     # --------------------------------------------------------------------------
-    # Dashboards Definition (4 Full Dashboards)
+    # Dashboards Definition (Fully Schema-Compliant)
+    # Content Model: (style, size?, datasources, datasource-dependencies*, zones, devicelayouts, simple-id)
     # --------------------------------------------------------------------------
-    xml_lines.extend([
+    xml.extend([
         "  <dashboards>",
         # Dashboard 1: Market Pulse
         "    <dashboard name='Dashboard 1 - Market Pulse'>",
         "      <style />",
         "      <size maxheight='850' maxwidth='1300' minheight='850' minwidth='1300' sizing-mode='fixed' />",
+        "      <datasources>",
+        "        <datasource caption='Market Monthly Intelligence' name='ds_market_monthly' />",
+        "      </datasources>",
+        "      <datasource-dependencies datasource='ds_market_monthly'>",
+        "        <column caption='Commodity' datatype='string' name='[commodity]' role='dimension' type='nominal' />",
+        "        <column caption='State' datatype='string' name='[state]' role='dimension' type='nominal' />",
+        "      </datasource-dependencies>",
         "      <zones>",
-        "        <zone h='100000' id='1' type='layout-basic' w='100000' x='0' y='0'>",
-        "          <zone h='98000' id='2' param='vert' type='layout-flow' w='98000' x='1000' y='1000'>",
-        "            <zone h='10000' id='3' type='title' w='98000' x='1000' y='1000'>",
+        "        <zone h='100000' id='1' type-v2='layout-basic' w='100000' x='0' y='0'>",
+        "          <zone h='98000' id='2' param='vert' type-v2='layout-flow' w='98000' x='1000' y='1000'>",
+        "            <zone h='10000' id='3' type-v2='title' w='98000' x='1000' y='1000'>",
         "              <formatted-text>",
         "                <run bold='true' fontcolor='#0f172a' fontsize='16'>MARKETPULSE INDIA | 1. Monthly Mandi Intelligence</run>",
-        "                <run fontcolor='#64748b' fontsize='10'>\nWholesale price trends and inter-mandi price dispersion across 6 Indian states (Aug 2024 – Sep 2026 snapshot). Units: ₹/Quintal.</run>",
+        "                <run fontcolor='#64748b' fontsize='10'>&#10;Wholesale price trends and inter-mandi price dispersion across 6 Indian states (Aug 2024 – Sep 2026 snapshot). Units: ₹/Quintal.</run>",
         "              </formatted-text>",
         "            </zone>",
-        "            <zone h='86000' id='4' param='horz' type='layout-flow' w='98000' x='1000' y='12000'>",
+        "            <zone h='86000' id='4' param='horz' type-v2='layout-flow' w='98000' x='1000' y='12000'>",
         "              <zone h='86000' id='5' name='w_price_trends' w='60000' x='1000' y='12000' />",
         "              <zone h='86000' id='6' name='w_state_comparison' w='38000' x='61000' y='12000' />",
         "            </zone>",
         "          </zone>",
         "        </zone>",
         "      </zones>",
+        "      <devicelayouts />",
+        f"      <simple-id uuid='{gen_uuid()}' />",
         "    </dashboard>",
 
         # Dashboard 2: Spread Lab
         "    <dashboard name='Dashboard 2 - Spread Lab'>",
         "      <style />",
         "      <size maxheight='850' maxwidth='1300' minheight='850' minwidth='1300' sizing-mode='fixed' />",
+        "      <datasources>",
+        "        <datasource caption='Corridor Spread Daily' name='ds_corridor_spread' />",
+        "      </datasources>",
+        "      <datasource-dependencies datasource='ds_corridor_spread'>",
+        "        <column caption='Corridor Name' datatype='string' name='[corridor_name]' role='dimension' type='nominal' />",
+        "      </datasource-dependencies>",
         "      <zones>",
-        "        <zone h='100000' id='11' type='layout-basic' w='100000' x='0' y='0'>",
-        "          <zone h='98000' id='12' param='vert' type='layout-flow' w='98000' x='1000' y='1000'>",
-        "            <zone h='10000' id='13' type='title' w='98000' x='1000' y='1000'>",
+        "        <zone h='100000' id='11' type-v2='layout-basic' w='100000' x='0' y='0'>",
+        "          <zone h='98000' id='12' param='vert' type-v2='layout-flow' w='98000' x='1000' y='1000'>",
+        "            <zone h='10000' id='13' type-v2='title' w='98000' x='1000' y='1000'>",
         "              <formatted-text>",
         "                <run bold='true' fontcolor='#0f172a' fontsize='16'>MARKETPULSE INDIA | 2. Spatial Arbitrage &amp; Variety Confounding</run>",
-        "                <run fontcolor='#64748b' fontsize='10'>\nLasalgaon vs Mumbai Onion spread inversion case study: Mumbai lower on 74.75% of 507 matched days (mean -₹157.76/Qtl) due to cultivar reporting heterogeneity.</run>",
+        "                <run fontcolor='#64748b' fontsize='10'>&#10;Lasalgaon vs Mumbai Onion spread inversion case study: Mumbai lower on 74.75% of 507 matched days (mean -₹157.76/Qtl) due to cultivar reporting heterogeneity.</run>",
         "              </formatted-text>",
         "            </zone>",
-        "            <zone h='86000' id='14' param='horz' type='layout-flow' w='98000' x='1000' y='12000'>",
+        "            <zone h='86000' id='14' param='horz' type-v2='layout-flow' w='98000' x='1000' y='12000'>",
         "              <zone h='86000' id='15' name='w_corridor_spread_timeline' w='65000' x='1000' y='12000' />",
         "              <zone h='86000' id='16' name='w_corridor_spread_hist' w='33000' x='66000' y='12000' />",
         "            </zone>",
         "          </zone>",
         "        </zone>",
         "      </zones>",
+        "      <devicelayouts />",
+        f"      <simple-id uuid='{gen_uuid()}' />",
         "    </dashboard>",
 
         # Dashboard 3: Arrival-Price Research
         "    <dashboard name='Dashboard 3 - Arrival-Price Research'>",
         "      <style />",
         "      <size maxheight='850' maxwidth='1300' minheight='850' minwidth='1300' sizing-mode='fixed' />",
+        "      <datasources>",
+        "        <datasource caption='Arrival Elasticity Models' name='ds_elasticity_models' />",
+        "      </datasources>",
+        "      <datasource-dependencies datasource='ds_elasticity_models'>",
+        "        <column caption='Commodity' datatype='string' name='[commodity]' role='dimension' type='nominal' />",
+        "      </datasource-dependencies>",
         "      <zones>",
-        "        <zone h='100000' id='21' type='layout-basic' w='100000' x='0' y='0'>",
-        "          <zone h='98000' id='22' param='vert' type='layout-flow' w='98000' x='1000' y='1000'>",
-        "            <zone h='10000' id='23' type='title' w='98000' x='1000' y='1000'>",
+        "        <zone h='100000' id='21' type-v2='layout-basic' w='100000' x='0' y='0'>",
+        "          <zone h='98000' id='22' param='vert' type-v2='layout-flow' w='98000' x='1000' y='1000'>",
+        "            <zone h='10000' id='23' type-v2='title' w='98000' x='1000' y='1000'>",
         "              <formatted-text>",
         "                <run bold='true' fontcolor='#0f172a' fontsize='16'>MARKETPULSE INDIA | 3. Econometric Elasticity Panel (TWFE)</run>",
-        "                <run fontcolor='#64748b' fontsize='10'>\nTwo-Way Fixed Effects panel regression with Cameron-Miller cluster-robust standard errors. Onion β = -0.0360 (95% CI [-0.072, -0.0001]); refutes 35-50% price surge folklore.</run>",
+        "                <run fontcolor='#64748b' fontsize='10'>&#10;Two-Way Fixed Effects panel regression with Cameron-Miller cluster-robust standard errors. Onion β = -0.0360 (95% CI [-0.072, -0.0001]); refutes 35-50% price surge folklore.</run>",
         "              </formatted-text>",
         "            </zone>",
-        "            <zone h='86000' id='24' param='horz' type='layout-flow' w='98000' x='1000' y='12000'>",
+        "            <zone h='86000' id='24' param='horz' type-v2='layout-flow' w='98000' x='1000' y='12000'>",
         "              <zone h='86000' id='25' name='w_elasticity_forest_plot' w='55000' x='1000' y='12000' />",
         "              <zone h='86000' id='26' name='w_elasticity_shock_response' w='43000' x='56000' y='12000' />",
         "            </zone>",
         "          </zone>",
         "        </zone>",
         "      </zones>",
+        "      <devicelayouts />",
+        f"      <simple-id uuid='{gen_uuid()}' />",
         "    </dashboard>",
 
         # Dashboard 4: Reliability Forensics
         "    <dashboard name='Dashboard 4 - Reliability Forensics'>",
         "      <style />",
         "      <size maxheight='850' maxwidth='1300' minheight='850' minwidth='1300' sizing-mode='fixed' />",
+        "      <datasources>",
+        "        <datasource caption='Frozen Price Streaks' name='ds_frozen_streaks' />",
+        "      </datasources>",
+        "      <datasource-dependencies datasource='ds_frozen_streaks'>",
+        "        <column caption='Audit Review Priority' datatype='string' name='[audit_priority]' role='dimension' type='nominal' />",
+        "      </datasource-dependencies>",
         "      <zones>",
-        "        <zone h='100000' id='31' type='layout-basic' w='100000' x='0' y='0'>",
-        "          <zone h='98000' id='32' param='vert' type='layout-flow' w='98000' x='1000' y='1000'>",
-        "            <zone h='10000' id='33' type='title' w='98000' x='1000' y='1000'>",
+        "        <zone h='100000' id='31' type-v2='layout-basic' w='100000' x='0' y='0'>",
+        "          <zone h='98000' id='32' param='vert' type-v2='layout-flow' w='98000' x='1000' y='1000'>",
+        "            <zone h='10000' id='33' type-v2='title' w='98000' x='1000' y='1000'>",
         "              <formatted-text>",
         "                <run bold='true' fontcolor='#0f172a' fontsize='16'>MARKETPULSE INDIA | 4. Mandi Reliability &amp; Quality Assurance</run>",
-        "                <run fontcolor='#64748b' fontsize='10'>\nForensic audit of 27,420 frozen price streaks (≥7 days). MSP statutory quotes vs administrative ceilings vs stale reporting. 100% row conservation (1,481,250 valid + 70 scale errors + 4 zero arrivals).</run>",
+        "                <run fontcolor='#64748b' fontsize='10'>&#10;Forensic audit of 27,420 frozen price streaks (≥7 days). MSP statutory quotes vs administrative ceilings vs stale reporting. 100% row conservation (1,481,250 valid + 70 scale errors + 4 zero arrivals).</run>",
         "              </formatted-text>",
         "            </zone>",
-        "            <zone h='86000' id='34' param='horz' type='layout-flow' w='98000' x='1000' y='12000'>",
+        "            <zone h='86000' id='34' param='horz' type-v2='layout-flow' w='98000' x='1000' y='12000'>",
         "              <zone h='86000' id='35' name='w_frozen_streak_distribution' w='50000' x='1000' y='12000' />",
         "              <zone h='86000' id='36' name='w_frozen_explanation_pie' w='48000' x='51000' y='12000' />",
         "            </zone>",
         "          </zone>",
         "        </zone>",
         "      </zones>",
+        "      <devicelayouts />",
+        f"      <simple-id uuid='{gen_uuid()}' />",
         "    </dashboard>",
         "  </dashboards>",
     ])
@@ -583,29 +639,33 @@ def create_workbook_xml(is_packaged: bool = False) -> str:
     # --------------------------------------------------------------------------
     # Windows & Layout Navigation
     # --------------------------------------------------------------------------
-    xml_lines.extend([
+    xml.extend([
         "  <windows>",
         "    <window class='dashboard' maximized='true' name='Dashboard 1 - Market Pulse'>",
         "      <viewpoints />",
         "      <active id='-1' />",
+        f"      <simple-id uuid='{gen_uuid()}' />",
         "    </window>",
         "    <window class='dashboard' name='Dashboard 2 - Spread Lab'>",
         "      <viewpoints />",
         "      <active id='-1' />",
+        f"      <simple-id uuid='{gen_uuid()}' />",
         "    </window>",
         "    <window class='dashboard' name='Dashboard 3 - Arrival-Price Research'>",
         "      <viewpoints />",
         "      <active id='-1' />",
+        f"      <simple-id uuid='{gen_uuid()}' />",
         "    </window>",
         "    <window class='dashboard' name='Dashboard 4 - Reliability Forensics'>",
         "      <viewpoints />",
         "      <active id='-1' />",
+        f"      <simple-id uuid='{gen_uuid()}' />",
         "    </window>",
         "  </windows>",
         "</workbook>",
     ])
 
-    return "\n".join(xml_lines)
+    return "\n".join(xml)
 
 
 def build_workbooks():
@@ -615,7 +675,7 @@ def build_workbooks():
     twbx_path = TABLEAU_DIR / "marketpulse_india.twbx"
 
     print("=" * 70)
-    print("MarketPulse India - Building Tableau Public Workbook Artifacts")
+    print("MarketPulse India - Building Schema-Hardened Tableau Workbooks")
     print("=" * 70)
 
     # 1. Generate standalone .twb (relative data path to ../data/processed/tableau/)
@@ -630,10 +690,8 @@ def build_workbooks():
     twbx_xml_content = create_workbook_xml(is_packaged=True)
 
     with zipfile.ZipFile(twbx_path, "w", compression=zipfile.ZIP_DEFLATED) as zf:
-        # Write internal .twb
         zf.writestr("marketpulse_india.twb", twbx_xml_content)
 
-        # Bundle all 6 CSV data products into Data/
         csv_files = [
             "market_monthly.csv",
             "corridor_spread_daily.csv",
