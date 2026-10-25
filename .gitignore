@@ -17,6 +17,7 @@ Thumbs.db
 data/raw/*.parquet
 !data/raw/all_market_history.parquet
 
-# Processed Tableau CSV extracts (regenerable via scripts/build_tableau_extract.py)
+# Processed Tableau CSV and Hyper extracts (regenerable via scripts)
 data/processed/tableau/*.csv
+data/processed/tableau/*.hyper
 

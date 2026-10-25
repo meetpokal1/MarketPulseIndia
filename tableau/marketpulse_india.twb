@@ -68,6 +68,39 @@
       <column caption='P75 Price (₹/Qtl)' datatype='real' name='[p75_daily_modal_price_rs_per_quintal]' role='measure' type='quantitative' />
       <column caption='Total Arrivals (MT)' datatype='real' name='[total_arrivals_tonnes]' role='measure' type='quantitative' />
       <column caption='Observed Records Count' datatype='integer' name='[observed_records_count]' role='measure' type='quantitative' />
+      <extract count='-1' enabled='true' object-id='' units='records' user-specific='false'>
+        <connection access_mode='readonly' author-locale='en_US' class='hyper' dbname='../data/processed/tableau/market_monthly.hyper' default-settings='hyper' schema='Extract' sslmode='' tablename='Extract' update-time='10/25/2026 11:00:00 AM' username='tableau_internal_user'>
+          <relation name='Extract' table='[Extract].[Extract]' type='table' />
+          <cols>
+            <map key='[year_month]' value='[Extract].[year_month]' />
+            <map key='[month_start_date]' value='[Extract].[month_start_date]' />
+            <map key='[state_id]' value='[Extract].[state_id]' />
+            <map key='[state]' value='[Extract].[state]' />
+            <map key='[district]' value='[Extract].[district]' />
+            <map key='[market_id]' value='[Extract].[market_id]' />
+            <map key='[canonical_market_name]' value='[Extract].[canonical_market_name]' />
+            <map key='[commodity]' value='[Extract].[commodity]' />
+            <map key='[observed_records_count]' value='[Extract].[observed_records_count]' />
+            <map key='[valid_price_records_count]' value='[Extract].[valid_price_records_count]' />
+            <map key='[mean_daily_modal_price_rs_per_quintal]' value='[Extract].[mean_daily_modal_price_rs_per_quintal]' />
+            <map key='[median_daily_modal_price_rs_per_quintal]' value='[Extract].[median_daily_modal_price_rs_per_quintal]' />
+            <map key='[min_daily_modal_price_rs_per_quintal]' value='[Extract].[min_daily_modal_price_rs_per_quintal]' />
+            <map key='[max_daily_modal_price_rs_per_quintal]' value='[Extract].[max_daily_modal_price_rs_per_quintal]' />
+            <map key='[p25_daily_modal_price_rs_per_quintal]' value='[Extract].[p25_daily_modal_price_rs_per_quintal]' />
+            <map key='[p75_daily_modal_price_rs_per_quintal]' value='[Extract].[p75_daily_modal_price_rs_per_quintal]' />
+            <map key='[std_daily_modal_price_rs_per_quintal]' value='[Extract].[std_daily_modal_price_rs_per_quintal]' />
+            <map key='[total_arrivals_tonnes]' value='[Extract].[total_arrivals_tonnes]' />
+            <map key='[mean_daily_arrivals_tonnes]' value='[Extract].[mean_daily_arrivals_tonnes]' />
+            <map key='[positive_arrival_records_count]' value='[Extract].[positive_arrival_records_count]' />
+            <map key='[flat_quote_records_count]' value='[Extract].[flat_quote_records_count]' />
+            <map key='[statistical_anomalies_count]' value='[Extract].[statistical_anomalies_count]' />
+            <map key='[scale_error_records_count]' value='[Extract].[scale_error_records_count]' />
+            <map key='[zero_arrival_records_count]' value='[Extract].[zero_arrival_records_count]' />
+            <map key='[dominant_raw_variety]' value='[Extract].[dominant_raw_variety]' />
+            <map key='[dominant_variety_tier]' value='[Extract].[dominant_variety_tier]' />
+          </cols>
+        </connection>
+      </extract>
     </datasource>
     <datasource caption='Corridor Spread Daily' inline='true' name='ds_corridor_spread' version='18.1'>
       <connection class='federated'>
@@ -115,6 +148,38 @@
       <column caption='Destination Modal Price (₹/Qtl)' datatype='real' name='[dest_price]' role='measure' type='quantitative' />
       <column caption='Variety Comparability Status' datatype='string' name='[variety_comparability_status]' role='dimension' type='nominal' />
       <column caption='Apparent Inversion Flag' datatype='boolean' name='[apparent_inversion_flag]' role='dimension' type='nominal' />
+      <extract count='-1' enabled='true' object-id='' units='records' user-specific='false'>
+        <connection access_mode='readonly' author-locale='en_US' class='hyper' dbname='../data/processed/tableau/corridor_spread_daily.hyper' default-settings='hyper' schema='Extract' sslmode='' tablename='Extract' update-time='10/25/2026 11:00:00 AM' username='tableau_internal_user'>
+          <relation name='Extract' table='[Extract].[Extract]' type='table' />
+          <cols>
+            <map key='[corridor_id]' value='[Extract].[corridor_id]' />
+            <map key='[corridor_name]' value='[Extract].[corridor_name]' />
+            <map key='[commodity]' value='[Extract].[commodity]' />
+            <map key='[corridor_narrative]' value='[Extract].[corridor_narrative]' />
+            <map key='[date]' value='[Extract].[date]' />
+            <map key='[source_market_name]' value='[Extract].[source_market_name]' />
+            <map key='[source_raw_name]' value='[Extract].[source_raw_name]' />
+            <map key='[source_raw_variety]' value='[Extract].[source_raw_variety]' />
+            <map key='[source_std_variety]' value='[Extract].[source_std_variety]' />
+            <map key='[source_variety_tier]' value='[Extract].[source_variety_tier]' />
+            <map key='[source_price]' value='[Extract].[source_price]' />
+            <map key='[source_arrivals]' value='[Extract].[source_arrivals]' />
+            <map key='[dest_market_name]' value='[Extract].[dest_market_name]' />
+            <map key='[dest_raw_name]' value='[Extract].[dest_raw_name]' />
+            <map key='[dest_raw_variety]' value='[Extract].[dest_raw_variety]' />
+            <map key='[dest_std_variety]' value='[Extract].[dest_std_variety]' />
+            <map key='[dest_variety_tier]' value='[Extract].[dest_variety_tier]' />
+            <map key='[dest_price]' value='[Extract].[dest_price]' />
+            <map key='[dest_arrivals]' value='[Extract].[dest_arrivals]' />
+            <map key='[price_spread_quintal]' value='[Extract].[price_spread_quintal]' />
+            <map key='[price_spread_kg]' value='[Extract].[price_spread_kg]' />
+            <map key='[spread_pct]' value='[Extract].[spread_pct]' />
+            <map key='[variety_comparability_status]' value='[Extract].[variety_comparability_status]' />
+            <map key='[is_spread_negative]' value='[Extract].[is_spread_negative]' />
+            <map key='[apparent_inversion_flag]' value='[Extract].[apparent_inversion_flag]' />
+          </cols>
+        </connection>
+      </extract>
     </datasource>
     <datasource caption='Arrival Elasticity Models' inline='true' name='ds_elasticity_models' version='18.1'>
       <connection class='federated'>
@@ -164,6 +229,39 @@
       <column caption='Sample Size (N)' datatype='integer' name='[n_observations]' role='measure' type='quantitative' />
       <column caption='Market Clusters (G)' datatype='integer' name='[n_market_clusters]' role='measure' type='quantitative' />
       <column caption='Within R²' datatype='real' name='[within_r2]' role='measure' type='quantitative' />
+      <extract count='-1' enabled='true' object-id='' units='records' user-specific='false'>
+        <connection access_mode='readonly' author-locale='en_US' class='hyper' dbname='../data/processed/tableau/arrival_elasticity_models.hyper' default-settings='hyper' schema='Extract' sslmode='' tablename='Extract' update-time='10/25/2026 11:00:00 AM' username='tableau_internal_user'>
+          <relation name='Extract' table='[Extract].[Extract]' type='table' />
+          <cols>
+            <map key='[commodity]' value='[Extract].[commodity]' />
+            <map key='[model_id]' value='[Extract].[model_id]' />
+            <map key='[specification]' value='[Extract].[specification]' />
+            <map key='[dependent_var]' value='[Extract].[dependent_var]' />
+            <map key='[explanatory_var]' value='[Extract].[explanatory_var]' />
+            <map key='[fixed_effects]' value='[Extract].[fixed_effects]' />
+            <map key='[standard_error_method]' value='[Extract].[standard_error_method]' />
+            <map key='[state_scope]' value='[Extract].[state_scope]' />
+            <map key='[n_observations]' value='[Extract].[n_observations]' />
+            <map key='[n_market_clusters]' value='[Extract].[n_market_clusters]' />
+            <map key='[n_calendar_months]' value='[Extract].[n_calendar_months]' />
+            <map key='[min_date]' value='[Extract].[min_date]' />
+            <map key='[max_date]' value='[Extract].[max_date]' />
+            <map key='[pooled_ols_beta]' value='[Extract].[pooled_ols_beta]' />
+            <map key='[estimated_elasticity_beta]' value='[Extract].[estimated_elasticity_beta]' />
+            <map key='[cluster_robust_se]' value='[Extract].[cluster_robust_se]' />
+            <map key='[t_statistic]' value='[Extract].[t_statistic]' />
+            <map key='[p_value_approx]' value='[Extract].[p_value_approx]' />
+            <map key='[ci_95_lower]' value='[Extract].[ci_95_lower]' />
+            <map key='[ci_95_upper]' value='[Extract].[ci_95_upper]' />
+            <map key='[within_r2]' value='[Extract].[within_r2]' />
+            <map key='[price_response_pct_for_plus_10pct_arrivals]' value='[Extract].[price_response_pct_for_plus_10pct_arrivals]' />
+            <map key='[price_response_pct_for_minus_10pct_arrivals]' value='[Extract].[price_response_pct_for_minus_10pct_arrivals]' />
+            <map key='[price_response_pct_for_minus_25pct_arrivals]' value='[Extract].[price_response_pct_for_minus_25pct_arrivals]' />
+            <map key='[economic_interpretation]' value='[Extract].[economic_interpretation]' />
+            <map key='[causal_disclaimer]' value='[Extract].[causal_disclaimer]' />
+          </cols>
+        </connection>
+      </extract>
     </datasource>
     <datasource caption='Frozen Price Streaks' inline='true' name='ds_frozen_streaks' version='18.1'>
       <connection class='federated'>
@@ -199,6 +297,27 @@
       <column caption='APMC Mandi' datatype='string' name='[canonical_market_name]' role='dimension' type='nominal' />
       <column caption='Commodity' datatype='string' name='[commodity]' role='dimension' type='nominal' />
       <column caption='Frozen Price (₹/Qtl)' datatype='real' name='[frozen_modal_price_rs_per_quintal]' role='measure' type='quantitative' />
+      <extract count='-1' enabled='true' object-id='' units='records' user-specific='false'>
+        <connection access_mode='readonly' author-locale='en_US' class='hyper' dbname='../data/processed/tableau/frozen_price_streaks.hyper' default-settings='hyper' schema='Extract' sslmode='' tablename='Extract' update-time='10/25/2026 11:00:00 AM' username='tableau_internal_user'>
+          <relation name='Extract' table='[Extract].[Extract]' type='table' />
+          <cols>
+            <map key='[streak_id]' value='[Extract].[streak_id]' />
+            <map key='[state]' value='[Extract].[state]' />
+            <map key='[district]' value='[Extract].[district]' />
+            <map key='[market_id]' value='[Extract].[market_id]' />
+            <map key='[canonical_market_name]' value='[Extract].[canonical_market_name]' />
+            <map key='[commodity]' value='[Extract].[commodity]' />
+            <map key='[frozen_modal_price_rs_per_quintal]' value='[Extract].[frozen_modal_price_rs_per_quintal]' />
+            <map key='[streak_start_date]' value='[Extract].[streak_start_date]' />
+            <map key='[streak_end_date]' value='[Extract].[streak_end_date]' />
+            <map key='[streak_days]' value='[Extract].[streak_days]' />
+            <map key='[calendar_span_days]' value='[Extract].[calendar_span_days]' />
+            <map key='[plausible_explanation]' value='[Extract].[plausible_explanation]' />
+            <map key='[audit_priority]' value='[Extract].[audit_priority]' />
+            <map key='[is_msp_statutory_quote]' value='[Extract].[is_msp_statutory_quote]' />
+          </cols>
+        </connection>
+      </extract>
     </datasource>
   </datasources>
   <worksheets>
@@ -231,7 +350,7 @@
         <rows>[ds_market_monthly].[avg:mean_daily_modal_price_rs_per_quintal:qk]</rows>
         <cols>[ds_market_monthly].[none:month_start_date:qk]</cols>
       </table>
-      <simple-id uuid='{4B58E921-722E-49A0-BA4A-E85A1FD47D16}' />
+      <simple-id uuid='{FB1DD5DD-1785-43F7-8303-8E967D27D5EC}' />
     </worksheet>
     <worksheet name='w_state_comparison'>
       <table>
@@ -257,7 +376,7 @@
         <rows>[ds_market_monthly].[none:state:nk]</rows>
         <cols>[ds_market_monthly].[avg:mean_daily_modal_price_rs_per_quintal:qk]</cols>
       </table>
-      <simple-id uuid='{E138A422-4550-466E-8ECD-FB5F8DA46CA6}' />
+      <simple-id uuid='{1F07759F-1277-42C3-83A6-A8BF8BD29479}' />
     </worksheet>
     <worksheet name='w_corridor_spread_timeline'>
       <table>
@@ -288,7 +407,7 @@
         <rows>[ds_corridor_spread].[avg:price_spread_quintal:qk]</rows>
         <cols>[ds_corridor_spread].[none:date:qk]</cols>
       </table>
-      <simple-id uuid='{83E4E352-DB57-424B-A630-C6F5276D82CE}' />
+      <simple-id uuid='{360C5EEF-2A8A-42D6-952B-ED2ECC118A0C}' />
     </worksheet>
     <worksheet name='w_corridor_spread_hist'>
       <table>
@@ -314,7 +433,7 @@
         <rows>[ds_corridor_spread].[none:corridor_name:nk]</rows>
         <cols>[ds_corridor_spread].[avg:price_spread_quintal:qk]</cols>
       </table>
-      <simple-id uuid='{75DFD88D-B117-46AC-8467-0D5BF53ABD39}' />
+      <simple-id uuid='{3D679525-AF97-482E-8189-61447E2A2187}' />
     </worksheet>
     <worksheet name='w_elasticity_forest_plot'>
       <table>
@@ -340,7 +459,7 @@
         <rows>[ds_elasticity_models].[none:commodity:nk]</rows>
         <cols>[ds_elasticity_models].[avg:estimated_elasticity_beta:qk]</cols>
       </table>
-      <simple-id uuid='{2F6F00DA-712B-4185-AD1F-DA6C10A637F3}' />
+      <simple-id uuid='{1EC20F43-C8BC-48BD-B746-61B35C15740A}' />
     </worksheet>
     <worksheet name='w_elasticity_shock_response'>
       <table>
@@ -366,7 +485,7 @@
         <rows>[ds_elasticity_models].[none:commodity:nk]</rows>
         <cols>[ds_elasticity_models].[avg:price_response_pct_for_minus_10pct_arrivals:qk]</cols>
       </table>
-      <simple-id uuid='{E9A225E9-1614-4107-8119-6F71B474BA08}' />
+      <simple-id uuid='{CCFD3E66-7051-4911-822A-243342B18FF9}' />
     </worksheet>
     <worksheet name='w_frozen_streak_distribution'>
       <table>
@@ -392,7 +511,7 @@
         <rows>[ds_frozen_streaks].[none:audit_priority:nk]</rows>
         <cols>[ds_frozen_streaks].[sum:streak_days:qk]</cols>
       </table>
-      <simple-id uuid='{118946D5-E22B-45D0-9D7C-349E8B211F2D}' />
+      <simple-id uuid='{2623BFD4-DB29-4EB1-A536-12F1FB761480}' />
     </worksheet>
     <worksheet name='w_frozen_explanation_pie'>
       <table>
@@ -418,7 +537,7 @@
         <rows>[ds_frozen_streaks].[none:plausible_explanation:nk]</rows>
         <cols>[ds_frozen_streaks].[sum:streak_days:qk]</cols>
       </table>
-      <simple-id uuid='{7A0D86AE-41B2-4A67-BF4E-58879DD957C3}' />
+      <simple-id uuid='{0DAE723B-3C0D-4213-8189-C016B83DDDAB}' />
     </worksheet>
   </worksheets>
   <dashboards>
@@ -448,7 +567,7 @@
           </zone>
         </zone>
       </zones>
-      <simple-id uuid='{B1B14705-6386-492B-94DD-91A1B8F30658}' />
+      <simple-id uuid='{E40C8F8C-5310-47D0-B6BD-A1105E6F1230}' />
     </dashboard>
     <dashboard name='Dashboard 2 - Spread Lab'>
       <style />
@@ -475,7 +594,7 @@
           </zone>
         </zone>
       </zones>
-      <simple-id uuid='{347D1A5B-210A-488D-9412-C1670EF8C60D}' />
+      <simple-id uuid='{C7A0DF25-DBBB-4595-95E1-3DEAE1997261}' />
     </dashboard>
     <dashboard name='Dashboard 3 - Arrival-Price Research'>
       <style />
@@ -502,7 +621,7 @@
           </zone>
         </zone>
       </zones>
-      <simple-id uuid='{001B9F03-02EC-49F6-9525-9CD574BEE529}' />
+      <simple-id uuid='{1A690011-C995-4353-A99A-0F632705CFD2}' />
     </dashboard>
     <dashboard name='Dashboard 4 - Reliability Forensics'>
       <style />
@@ -529,7 +648,7 @@
           </zone>
         </zone>
       </zones>
-      <simple-id uuid='{1A3CE418-4E9C-4067-8233-CFEC6B35AE04}' />
+      <simple-id uuid='{DDBAC710-FE9A-40DF-88F5-D8D110BE4B86}' />
     </dashboard>
   </dashboards>
   <windows>
@@ -554,7 +673,7 @@
           </strip>
         </edge>
       </cards>
-      <simple-id uuid='{017A9518-28DA-477B-A937-9BDEE6B7A967}' />
+      <simple-id uuid='{D89AAB8C-3AA2-4638-98A7-339CA5686508}' />
     </window>
     <window class='worksheet' name='w_state_comparison'>
       <cards>
@@ -577,7 +696,7 @@
           </strip>
         </edge>
       </cards>
-      <simple-id uuid='{F2A0B91B-5C08-4765-91D5-D3F745D0FFC5}' />
+      <simple-id uuid='{9EE99119-B125-4211-88A3-68E4BD62C4F2}' />
     </window>
     <window class='worksheet' name='w_corridor_spread_timeline'>
       <cards>
@@ -600,7 +719,7 @@
           </strip>
         </edge>
       </cards>
-      <simple-id uuid='{931F063C-6D67-41E0-9F49-03B4024EE8EC}' />
+      <simple-id uuid='{B3E4EBB6-69F3-4506-93D7-ECAB4611AA37}' />
     </window>
     <window class='worksheet' name='w_corridor_spread_hist'>
       <cards>
@@ -623,7 +742,7 @@
           </strip>
         </edge>
       </cards>
-      <simple-id uuid='{9B8191FF-2728-4B7B-8B66-70EB21EC979E}' />
+      <simple-id uuid='{2A114A2E-BBBB-432A-A80B-E10C5766C9F8}' />
     </window>
     <window class='worksheet' name='w_elasticity_forest_plot'>
       <cards>
@@ -646,7 +765,7 @@
           </strip>
         </edge>
       </cards>
-      <simple-id uuid='{9858B697-E184-4A64-AEA5-DF0FF2875471}' />
+      <simple-id uuid='{598C778D-EFBD-4FA0-ADD1-7D69BB7B20C0}' />
     </window>
     <window class='worksheet' name='w_elasticity_shock_response'>
       <cards>
@@ -669,7 +788,7 @@
           </strip>
         </edge>
       </cards>
-      <simple-id uuid='{6388A297-1331-432C-B511-88FD2B9993A5}' />
+      <simple-id uuid='{205E9F78-878F-4026-B5AF-C0247E06FC0A}' />
     </window>
     <window class='worksheet' name='w_frozen_streak_distribution'>
       <cards>
@@ -692,7 +811,7 @@
           </strip>
         </edge>
       </cards>
-      <simple-id uuid='{3BFE2CAB-9093-453D-AE67-F07F79AF131E}' />
+      <simple-id uuid='{1AF6EF69-37E2-4A38-8077-81139B7CBA83}' />
     </window>
     <window class='worksheet' name='w_frozen_explanation_pie'>
       <cards>
@@ -715,7 +834,7 @@
           </strip>
         </edge>
       </cards>
-      <simple-id uuid='{AEDC9664-A0D9-4A4F-B7B2-44550B6602BA}' />
+      <simple-id uuid='{57BD7F2C-F9BC-456F-A128-70CD2DA7DE22}' />
     </window>
     <window class='dashboard' maximized='true' name='Dashboard 1 - Market Pulse'>
       <viewpoints>
@@ -723,7 +842,7 @@
         <viewpoint name='w_state_comparison' />
       </viewpoints>
       <active id='-1' />
-      <simple-id uuid='{2E78AD6C-2CC3-4A5A-8CFA-121E69037C0B}' />
+      <simple-id uuid='{36813D2C-9F48-4B2D-8592-AE551BC893DE}' />
     </window>
     <window class='dashboard' name='Dashboard 2 - Spread Lab'>
       <viewpoints>
@@ -731,7 +850,7 @@
         <viewpoint name='w_corridor_spread_hist' />
       </viewpoints>
       <active id='-1' />
-      <simple-id uuid='{C2652D9C-AEDA-4D89-B8E9-2E0ADDE41F33}' />
+      <simple-id uuid='{BF858122-0F52-40CE-B567-C3BD29D2CFA9}' />
     </window>
     <window class='dashboard' name='Dashboard 3 - Arrival-Price Research'>
       <viewpoints>
@@ -739,7 +858,7 @@
         <viewpoint name='w_elasticity_shock_response' />
       </viewpoints>
       <active id='-1' />
-      <simple-id uuid='{1A3A83A2-EF8C-481B-A0CE-44AC6AECF73F}' />
+      <simple-id uuid='{D3456AEE-85A8-4143-83C9-CAD53005CF6D}' />
     </window>
     <window class='dashboard' name='Dashboard 4 - Reliability Forensics'>
       <viewpoints>
@@ -747,7 +866,7 @@
         <viewpoint name='w_frozen_explanation_pie' />
       </viewpoints>
       <active id='-1' />
-      <simple-id uuid='{B9A8474B-2243-408D-B337-ED5FD3B57304}' />
+      <simple-id uuid='{015B88B1-A5D0-4C2E-8477-AEE268E6873B}' />
     </window>
   </windows>
 </workbook>

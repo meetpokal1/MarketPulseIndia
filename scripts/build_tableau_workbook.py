@@ -18,6 +18,16 @@ import sys
 import uuid
 import zipfile
 from pathlib import Path
+import polars as pl
+from tableauhyperapi import (
+    CreateMode,
+    HyperProcess,
+    Connection,
+    SqlType,
+    TableDefinition,
+    TableName,
+    Telemetry,
+)
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 PROCESSED_DATA_DIR = BASE_DIR / "data" / "processed" / "tableau"
@@ -27,6 +37,79 @@ TABLEAU_DIR = BASE_DIR / "tableau"
 def gen_uuid():
     return f"{{{str(uuid.uuid4()).upper()}}}"
 
+
+def compile_hyper_extracts():
+    """Compile CSV data products into native Tableau Hyper (.hyper) extracts."""
+    datasets = [
+        "market_monthly",
+        "corridor_spread_daily",
+        "arrival_elasticity_models",
+        "frozen_price_streaks",
+    ]
+    with HyperProcess(telemetry=Telemetry.DO_NOT_SEND_USAGE_DATA_TO_TABLEAU) as hyper:
+        for ds in datasets:
+            csv_path = PROCESSED_DATA_DIR / f"{ds}.csv"
+            hyper_path = PROCESSED_DATA_DIR / f"{ds}.hyper"
+            if hyper_path.exists():
+                hyper_path.unlink()
+
+            df = pl.read_csv(csv_path, n_rows=100)
+            col_defs = []
+            for col_name, dtype in zip(df.columns, df.dtypes):
+                if dtype in (pl.Int8, pl.Int16, pl.Int32):
+                    htype = SqlType.int()
+                elif dtype == pl.Int64:
+                    htype = SqlType.big_int()
+                elif dtype in (pl.Float32, pl.Float64):
+                    htype = SqlType.double()
+                elif dtype == pl.Boolean:
+                    htype = SqlType.bool()
+                elif dtype == pl.Date:
+                    htype = SqlType.date()
+                else:
+                    htype = SqlType.text()
+                col_defs.append(TableDefinition.Column(col_name, htype))
+
+            with Connection(
+                endpoint=hyper.endpoint,
+                database=str(hyper_path),
+                create_mode=CreateMode.CREATE_AND_REPLACE,
+            ) as conn:
+                conn.catalog.create_schema("Extract")
+                tdef = TableDefinition(
+                    table_name=TableName("Extract", "Extract"), columns=col_defs
+                )
+                conn.catalog.create_table(tdef)
+                abs_csv = str(csv_path.resolve()).replace("\\", "/")
+                count = conn.execute_command(
+                    f'COPY "Extract"."Extract" FROM \'{abs_csv}\' WITH (FORMAT CSV, HEADER TRUE)'
+                )
+                print(f"   [HYPER] Compiled {ds}.hyper ({count:,} records)")
+
+
+def build_extract_xml(dataset_name: str, is_packaged: bool) -> list[str]:
+    dbname = (
+        f"Data/{dataset_name}.hyper"
+        if is_packaged
+        else f"../data/processed/tableau/{dataset_name}.hyper"
+    )
+    csv_path = PROCESSED_DATA_DIR / f"{dataset_name}.csv"
+    df = pl.read_csv(csv_path, n_rows=1)
+
+    lines = [
+        "      <extract count='-1' enabled='true' object-id='' units='records' user-specific='false'>",
+        f"        <connection access_mode='readonly' author-locale='en_US' class='hyper' dbname='{dbname}' default-settings='hyper' schema='Extract' sslmode='' tablename='Extract' update-time='10/25/2026 11:00:00 AM' username='tableau_internal_user'>",
+        "          <relation name='Extract' table='[Extract].[Extract]' type='table' />",
+        "          <cols>",
+    ]
+    for col in df.columns:
+        lines.append(f"            <map key='[{col}]' value='[Extract].[{col}]' />")
+    lines.extend([
+        "          </cols>",
+        "        </connection>",
+        "      </extract>",
+    ])
+    return lines
 
 def create_workbook_xml(is_packaged: bool = False) -> str:
     """Generate schema-perfect Tableau Public XML workbook."""
@@ -109,6 +192,7 @@ def create_workbook_xml(is_packaged: bool = False) -> str:
         "      <column caption='P75 Price (₹/Qtl)' datatype='real' name='[p75_daily_modal_price_rs_per_quintal]' role='measure' type='quantitative' />",
         "      <column caption='Total Arrivals (MT)' datatype='real' name='[total_arrivals_tonnes]' role='measure' type='quantitative' />",
         "      <column caption='Observed Records Count' datatype='integer' name='[observed_records_count]' role='measure' type='quantitative' />",
+    ] + build_extract_xml("market_monthly", is_packaged) + [
         "    </datasource>",
     ])
 
@@ -162,6 +246,7 @@ def create_workbook_xml(is_packaged: bool = False) -> str:
         "      <column caption='Destination Modal Price (₹/Qtl)' datatype='real' name='[dest_price]' role='measure' type='quantitative' />",
         "      <column caption='Variety Comparability Status' datatype='string' name='[variety_comparability_status]' role='dimension' type='nominal' />",
         "      <column caption='Apparent Inversion Flag' datatype='boolean' name='[apparent_inversion_flag]' role='dimension' type='nominal' />",
+    ] + build_extract_xml("corridor_spread_daily", is_packaged) + [
         "    </datasource>",
     ])
 
@@ -217,6 +302,7 @@ def create_workbook_xml(is_packaged: bool = False) -> str:
         "      <column caption='Sample Size (N)' datatype='integer' name='[n_observations]' role='measure' type='quantitative' />",
         "      <column caption='Market Clusters (G)' datatype='integer' name='[n_market_clusters]' role='measure' type='quantitative' />",
         "      <column caption='Within R²' datatype='real' name='[within_r2]' role='measure' type='quantitative' />",
+    ] + build_extract_xml("arrival_elasticity_models", is_packaged) + [
         "    </datasource>",
     ])
 
@@ -258,6 +344,7 @@ def create_workbook_xml(is_packaged: bool = False) -> str:
         "      <column caption='APMC Mandi' datatype='string' name='[canonical_market_name]' role='dimension' type='nominal' />",
         "      <column caption='Commodity' datatype='string' name='[commodity]' role='dimension' type='nominal' />",
         "      <column caption='Frozen Price (₹/Qtl)' datatype='real' name='[frozen_modal_price_rs_per_quintal]' role='measure' type='quantitative' />",
+    ] + build_extract_xml("frozen_price_streaks", is_packaged) + [
         "    </datasource>",
     ])
 
@@ -726,6 +813,10 @@ def build_workbooks():
     print("MarketPulse India - Building Schema-Hardened Tableau Workbooks")
     print("=" * 70)
 
+    # 0. Compile native Hyper extracts
+    print("0. Compiling native Tableau Hyper extracts...")
+    compile_hyper_extracts()
+
     # 1. Generate standalone .twb (relative data path to ../data/processed/tableau/)
     print("1. Generating editable XML workbook: marketpulse_india.twb...")
     twb_content = create_workbook_xml(is_packaged=False)
@@ -755,6 +846,18 @@ def build_workbooks():
                 print(f"   + Bundled Data/{csv_name} ({src_csv.stat().st_size:,} bytes)")
             else:
                 print(f"   [WARNING] Missing CSV: {src_csv}")
+
+        hyper_files = [
+            "market_monthly.hyper",
+            "corridor_spread_daily.hyper",
+            "arrival_elasticity_models.hyper",
+            "frozen_price_streaks.hyper",
+        ]
+        for hyper_name in hyper_files:
+            src_hyper = PROCESSED_DATA_DIR / hyper_name
+            if src_hyper.exists():
+                zf.write(src_hyper, arcname=f"Data/{hyper_name}")
+                print(f"   + Bundled Data/{hyper_name} ({src_hyper.stat().st_size:,} bytes)")
 
     print(f"   [PASS] Saved {twbx_path.name} ({twbx_path.stat().st_size:,} bytes)")
     print("=" * 70)
