@@ -21,3 +21,6 @@ data/raw/*.parquet
 data/processed/tableau/*.csv
 data/processed/tableau/*.hyper
 
+
+# Local workspace backups
+backup/

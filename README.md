@@ -7,7 +7,7 @@
 [![Streamlit](https://img.shields.io/badge/Streamlit-Interactive%20UI-FF4B4B?logo=streamlit&logoColor=white)](https://streamlit.io)
 [![Tests](https://img.shields.io/badge/Tests-26%20Passed-10b981)](tests/)
 [![Data Integrity](https://img.shields.io/badge/Row%20Conservation-100%25-3b82f6)](documentation/METHODOLOGY.md)
-[![Tableau Public](https://img.shields.io/badge/Tableau%20Public-Packaged%20Workbook-E97627?logo=tableau&logoColor=white)](tableau/marketpulse_india.twbx)
+[![Tableau Public](https://img.shields.io/badge/Tableau%20Public-Live%20Dashboards-E97627?logo=tableau&logoColor=white)](https://public.tableau.com/app/profile/meet.pokal/viz/MarketPulseIndiaEssentialCommodityPriceIntelligence_/Dashboard1-MarketPulse)
 
 **MarketPulse India** is an investigative agricultural market intelligence platform built on **1,481,324 official AGMARKNET wholesale records** spanning August 2024 to September 2026 across 6 Indian states.
 
@@ -18,7 +18,7 @@ Rather than merely displaying raw prices, MarketPulse India investigates **why r
 ## 🎯 Key Verified Discoveries
 
 ### 1. The Negative Spatial Spread Paradox (Investigation A)
-- **The Observation:** Across **507 date-aligned trading days** between the primary production hub ([Lasalgaon APMC](file:///C:/Users/Meet%20Pokal/.gemini/antigravity/scratch/MarketPulseIndia/src/config.py#L40)) and the major metropolitan consuming terminal ([Mumbai APMC](file:///C:/Users/Meet%20Pokal/.gemini/antigravity/scratch/MarketPulseIndia/src/config.py#L41)), reported Mumbai prices were **lower than Lasalgaon on 74.8% of days**, yielding an unadjusted mean spread of **-₹157.76/quintal**.
+- **The Observation:** Across **507 date-aligned trading days** between the primary production hub ([Lasalgaon APMC](src/config.py#L40)) and the major metropolitan consuming terminal ([Mumbai APMC](src/config.py#L41)), reported Mumbai prices were **lower than Lasalgaon on 74.8% of days**, yielding an unadjusted mean spread of **-₹157.76/quintal**.
 - **The Variety Confounder:** Mumbai APMC categorizes **100% of reported records as generic 'Other'** (507 of 507 days). Lasalgaon segregates premium export-grade *Unhali* (mean spread -₹228/qtl) and *Red* onions (mean spread -₹210/qtl). Naively comparing unadjusted market prices compares generic terminal bulk lots against premium farm-gate export lots.
 
 ### 2. Disproving the Arrival-Price Inelasticity Myth (Investigation C)
@@ -41,22 +41,22 @@ flowchart TD
     A["Raw AGMARKNET Parquet Database<br/>1,481,324 Records • 6 States • 14 Commodities"] --> B["DuckDB Zero-Copy Ingestion Layer<br/>src/ingestion/loader.py"]
     B --> C["Data Standardization & Cleaning Pipeline<br/>src/cleaning/pipeline.py"]
     C --> D["Clean Analytical View: vw_clean_market_history<br/>100% Row Conservation (1,481,250 Valid | 74 Quarantined)"]
-    
+
     D --> E1["Market Spreads Engine<br/>src/analytics/market_spreads.py"]
     D --> E2["Price Volatility & Shocks<br/>src/analytics/volatility.py"]
     D --> E3["Panel Econometrics Engine<br/>src/models/econometrics.py"]
     D --> E4["Reliability & Staleness Auditor<br/>src/analytics/reliability_audit.py"]
     D --> E5["Decision Simulator<br/>src/simulator/decision_simulator.py"]
-    
+
     E1 & E2 & E3 & E4 & E5 --> F["Streamlit Decision-Support UI<br/>dashboard/app.py"]
 ```
 
-- **Dataset Storage:** Localized under [`data/raw/all_market_history.parquet`](file:///C:/Users/Meet%20Pokal/.gemini/antigravity/scratch/MarketPulseIndia/data/raw/all_market_history.parquet) (8.19 MB, 1,481,324 rows, self-contained).
-- **Query Engine:** [DuckDB 2.0.0](file:///C:/Users/Meet%20Pokal/.gemini/antigravity/scratch/MarketPulseIndia/src/ingestion/loader.py) — zero-copy scans over 8.2MB compressed Parquet, sub-10ms query latency.
-- **DataFrames:** [Polars 2.0.0](file:///C:/Users/Meet%20Pokal/.gemini/antigravity/scratch/MarketPulseIndia/src/ingestion/loader.py) and [Pandas 3.1.0](file:///C:/Users/Meet%20Pokal/.gemini/antigravity/scratch/MarketPulseIndia/src/ingestion/loader.py).
-- **Econometrics:** [Statsmodels 0.15.0](file:///C:/Users/Meet%20Pokal/.gemini/antigravity/scratch/MarketPulseIndia/src/models/econometrics.py) & [SciPy 1.18.1](file:///C:/Users/Meet%20Pokal/.gemini/antigravity/scratch/MarketPulseIndia/src/models/econometrics.py) (Two-Way Demeaning, Cameron-Miller Cluster-Robust Standard Errors).
-- **Interactive Frontend:** [Streamlit 1.66.1](file:///C:/Users/Meet%20Pokal/.gemini/antigravity/scratch/MarketPulseIndia/dashboard/app.py) & [Plotly 7.1.0](file:///C:/Users/Meet%20Pokal/.gemini/antigravity/scratch/MarketPulseIndia/dashboard/app.py) with custom dark editorial palette (`#0c1017`).
-- **Test Automation:** [Pytest 9.1.1](file:///C:/Users/Meet%20Pokal/.gemini/antigravity/scratch/MarketPulseIndia/tests/) & [Playwright 1.64.1](file:///C:/Users/Meet%20Pokal/.gemini/antigravity/scratch/MarketPulseIndia/scripts/validate_runtime_ui.py).
+- **Dataset Storage:** Localized under [`data/raw/all_market_history.parquet`](data/raw/all_market_history.parquet) (8.19 MB, 1,481,324 rows, self-contained).
+- **Query Engine:** [DuckDB 2.0.0](src/ingestion/loader.py) — zero-copy scans over 8.2MB compressed Parquet, sub-10ms query latency.
+- **DataFrames:** [Polars 2.0.0](src/ingestion/loader.py) and [Pandas 3.1.0](src/ingestion/loader.py).
+- **Econometrics:** [Statsmodels 0.15.0](src/models/econometrics.py) & [SciPy 1.18.1](src/models/econometrics.py) (Two-Way Demeaning, Cameron-Miller Cluster-Robust Standard Errors).
+- **Interactive Frontend:** [Streamlit 1.66.1](dashboard/app.py) & [Plotly 7.1.0](dashboard/app.py) with custom dark editorial palette (`#0c1017`).
+- **Test Automation:** [Pytest 9.1.1](tests/) & [Playwright 1.64.1](scripts/validate_runtime_ui.py).
 
 ---
 
@@ -75,13 +75,13 @@ flowchart TD
 
 ## 📈 Tableau Public Interactive Intelligence Deliverable
 
-In addition to the deep-dive research Streamlit interface, MarketPulse India includes an interactive **Tableau Public Multi-Dashboard Suite** built directly on normalized Stage 3A analytical data products.
+In addition to the deep-dive research Streamlit interface, MarketPulse India includes a live interactive **[Tableau Public Multi-Dashboard Suite](https://public.tableau.com/app/profile/meet.pokal/viz/MarketPulseIndiaEssentialCommodityPriceIntelligence_/Dashboard1-MarketPulse)** built directly on normalized Stage 3A analytical data products.
 
-- **Packaged Workbook (.twbx):** [`tableau/marketpulse_india.twbx`](file:///C:/Users/Meet%20Pokal/.gemini/antigravity/scratch/MarketPulseIndia/tableau/marketpulse_india.twbx) (3.20 MB, self-contained with bundled extracts)
-- **Editable Workbook (.twb):** [`tableau/marketpulse_india.twb`](file:///C:/Users/Meet%20Pokal/.gemini/antigravity/scratch/MarketPulseIndia/tableau/marketpulse_india.twb) (29.8 KB, connected via relative paths)
-- **Data Contract & Extract Spec:** [`documentation/TABLEAU_DATA_CONTRACT.md`](file:///C:/Users/Meet%20Pokal/.gemini/antigravity/scratch/MarketPulseIndia/documentation/TABLEAU_DATA_CONTRACT.md)
-- **Extract Pipeline:** [`scripts/build_tableau_extract.py`](file:///C:/Users/Meet%20Pokal/.gemini/antigravity/scratch/MarketPulseIndia/scripts/build_tableau_extract.py) (extracts 6 normalized datasets in 7.5s)
-- **Visual QA Evidence:** [`screenshots/stage3b_tableau/`](file:///C:/Users/Meet%20Pokal/.gemini/antigravity/scratch/MarketPulseIndia/screenshots/stage3b_tableau/) (`01_dashboard1_market_pulse.png`, `02_dashboard2_spread_lab.png`, `03_dashboard3_arrival_price_research.png`, `04_dashboard4_reliability_forensics.png`)
+- **Packaged Workbook (.twbx):** [`tableau/marketpulse_india.twbx`](tableau/marketpulse_india.twbx) (3.20 MB, self-contained with bundled extracts)
+- **Editable Workbook (.twb):** [`tableau/marketpulse_india.twb`](tableau/marketpulse_india.twb) (29.8 KB, connected via relative paths)
+- **Data Contract & Extract Spec:** [`documentation/TABLEAU_DATA_CONTRACT.md`](documentation/TABLEAU_DATA_CONTRACT.md)
+- **Extract Pipeline:** [`scripts/build_tableau_extract.py`](scripts/build_tableau_extract.py) (extracts 6 normalized datasets in 7.5s)
+- **Visual QA Evidence:** [`screenshots/stage3b_tableau/`](screenshots/stage3b_tableau/) (`01_dashboard1_market_pulse.png`, `02_dashboard2_spread_lab.png`, `03_dashboard3_arrival_price_research.png`, `04_dashboard4_reliability_forensics.png`)
 
 ### The Four Investigative Dashboards:
 1. **Dashboard 1: Market Pulse (Monthly Mandi Intelligence):** Monthly wholesale price movements, P25–P75 interquartile uncertainty bands, 6-state price rankings, and arrival volume tracking across 77,890 mandi-month records.
@@ -154,7 +154,10 @@ Open your browser at `http://localhost:8501`.
 
 ---
 
-## 📋 Limitations & Ethical Boundaries
-- **Wholesale vs Retail Gap:** Mandi modal prices reflect primary wholesale transactions and do not include secondary retail markup, intra-city transit, or retailer margins.
-- **Intraday Auction Aggregation:** AGMARKNET reports a single daily modal price; individual trade lot qualities and intraday bid distributions are unobservable.
-- **Hypothetical Simulator:** The Decision Simulator models *deterministic scenarios* based on user assumptions; it does not claim to execute live trades or guarantee commercial arbitrage.
+## 📋 Limitations & Analytical Boundaries
+- **Observed Spreads are Not Arbitrage:** The observed Lasalgaon–Mumbai price spread is an empirical indicator of market divergence and variety confounding; it is not, by itself, proof of a profitable commercial arbitrage opportunity.
+- **Freight Baseline Parameter:** The ₹120/Qtl baseline transport figure is a modeled baseline parameter for sensitivity testing, not a verified or guaranteed real-world universal freight cost.
+- **Observational Econometrics:** Estimated Two-Way Fixed Effects panel coefficients represent reduced-form within-market equilibrium price adjustments, not structural causal demand elasticity proof.
+- **Diagnostic Streak Classification:** Unchanged price streaks are classified under explanatory hypotheses (e.g. administrative price boards, statutory MSP pegging, or candidate price stickiness) as diagnostic indicators, not definitive proof of local trading reality.
+- **Wholesale vs. Retail Gap:** Mandi modal prices reflect primary agricultural wholesale auctions and do not include secondary retail markups, intra-city distribution costs, or retail shrinkage.
+- **Intraday Auction Aggregation:** AGMARKNET reports a single daily modal price; individual trade lot qualities and intraday bid distributions remain unobservable.

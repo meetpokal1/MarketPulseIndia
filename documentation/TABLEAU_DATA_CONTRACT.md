@@ -1,14 +1,14 @@
 # MarketPulse India — Tableau Data Contract & Analytical Extract Specification
 
-**Specification Version:** 1.0.0 (Stage 3A Data Foundation)  
-**Export Date:** October 2026  
-**Pipeline Source:** `scripts/build_tableau_extract.py`  
-**Manifest:** `data/processed/tableau/manifest.json`  
-**Primary Source Dataset:** `data/raw/all_market_history.parquet`  
-**Verified Source SHA-256:** `DA8E4435D7B63693C406401E0FA3B1F084FD1010F650598BA5030715A57ED6A4`  
-**Temporal Coverage:** 30 August 2024 to 28 September 2026 (25 Calendar Months)  
-**Geographic Coverage:** 6 Indian States (Gujarat, Karnataka, Kerala, Maharashtra, Tamil Nadu, Telangana; 176 Districts, 1,537 APMC Mandis)  
-**Commodity Coverage:** 14 Major Agricultural Commodities (Onion, Tomato, Potato, Green Chilli, Banana, Brinjal, Coconut, Maize, Paddy (Common), Groundnut, Cotton, Arecanut, Ragi, Turmeric)  
+**Specification Version:** 1.0.0 (Stage 3A Data Foundation)
+**Export Date:** October 2026
+**Pipeline Source:** `scripts/build_tableau_extract.py`
+**Manifest:** `data/processed/tableau/manifest.json`
+**Primary Source Dataset:** `data/raw/all_market_history.parquet`
+**Verified Source SHA-256:** `DA8E4435D7B63693C406401E0FA3B1F084FD1010F650598BA5030715A57ED6A4`
+**Temporal Coverage:** 30 August 2024 to 28 September 2026 (25 Calendar Months)
+**Geographic Coverage:** 6 Indian States (Andhra Pradesh, Karnataka, Kerala, Maharashtra, Tamil Nadu, Telangana; 176 Districts, 1,537 APMC Mandis)
+**Commodity Coverage:** 14 Major Agricultural Commodities (Onion, Tomato, Potato, Green Chilli, Banana, Brinjal, Coconut, Maize, Paddy (Common), Groundnut, Cotton, Arecanut, Ragi, Turmeric)
 
 ---
 
@@ -39,7 +39,7 @@ All datasets are generated deterministically via DuckDB and Python analytical en
 | `year_month` | String | `YYYY-MM` | Calendar month identifier (e.g., `2024-09` to `2026-09`). |
 | `month_start_date` | Date | `YYYY-MM-01` | First calendar day of the month for continuous time-series axes in Tableau. |
 | `state_id` | Integer | 1 to 32 | AGMARKNET official state identifier code. |
-| `state` | String | Categorical | State name (Gujarat, Karnataka, Kerala, Maharashtra, Tamil Nadu, Telangana). |
+| `state` | String | Categorical | State name (Andhra Pradesh, Karnataka, Kerala, Maharashtra, Tamil Nadu, Telangana). |
 | `district` | String | Categorical | Revenue district name of the reporting APMC mandi. |
 | `market_id` | String | Unique Code | Official APMC market identifier (e.g., `20-161` for Lasalgaon). |
 | `canonical_market_name` | String | Normalized Text | Standardized canonical APMC market title with title-casing and typos resolved. |
