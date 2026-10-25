@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1321.3309999999997 999.5619999999999" width="1321.3309999999997" height="999.5619999999999" style="--bg:#18181B;--fg:#F4F4F5;--line:#71717A;--muted:#A1A1AA;--surface:#27272A;--border:#3F3F46;background:var(--bg)">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap');
+  text { font-family: 'Inter', system-ui, sans-serif; }
+  svg {
+    /* Derived from --bg and --fg (overridable via --line, --accent, etc.) */
+    --_text:          var(--fg);
+    --_text-sec:      var(--muted, color-mix(in srgb, var(--fg) 60%, var(--bg)));
+    --_text-muted:    var(--muted, color-mix(in srgb, var(--fg) 40%, var(--bg)));
+    --_text-faint:    color-mix(in srgb, var(--fg) 25%, var(--bg));
+    --_line:          var(--line, color-mix(in srgb, var(--fg) 50%, var(--bg)));
+    --_arrow:         var(--accent, color-mix(in srgb, var(--fg) 85%, var(--bg)));
+    --_node-fill:     var(--surface, color-mix(in srgb, var(--fg) 3%, var(--bg)));
+    --_node-stroke:   var(--border, color-mix(in srgb, var(--fg) 20%, var(--bg)));
+    --_group-fill:    var(--bg);
+    --_group-hdr:     color-mix(in srgb, var(--fg) 5%, var(--bg));
+    --_inner-stroke:  color-mix(in srgb, var(--fg) 12%, var(--bg));
+    --_key-badge:     color-mix(in srgb, var(--fg) 10%, var(--bg));
+  }
+</style>
+<defs>
+  <marker id="arrowhead" markerWidth="8" markerHeight="5" refX="7" refY="2.5" orient="auto">
+    <polygon points="0 0, 8 2.5, 0 5" fill="var(--_arrow)" stroke="var(--_arrow)" stroke-width="0.75" stroke-linejoin="round" />
+  </marker>
+  <marker id="arrowhead-start" markerWidth="8" markerHeight="5" refX="1" refY="2.5" orient="auto-start-reverse">
+    <polygon points="8 0, 0 2.5, 8 5" fill="var(--_arrow)" stroke="var(--_arrow)" stroke-width="0.75" stroke-linejoin="round" />
+  </marker>
+</defs>
+<polyline class="edge" data-from="A" data-to="B" data-style="solid" data-arrow-start="false" data-arrow-end="true" points="742.3234999999997,110.7 742.3234999999997,158.7" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="B" data-to="C" data-style="solid" data-arrow-start="false" data-arrow-end="true" points="742.3234999999997,229.4 742.3234999999997,277.4" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="C" data-to="D" data-style="solid" data-arrow-start="false" data-arrow-end="true" points="742.3234999999997,348.1 742.3234999999997,396.1" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="D" data-to="E" data-style="solid" data-arrow-start="false" data-arrow-end="true" data-label="VALID (1,481,250 records)" points="715.029833333333,532.5683333333334 715.029833333333,638.7620000000001 638.0649999999998,638.7620000000001 638.0649999999998,719.062" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="D" data-to="F" data-style="solid" data-arrow-start="false" data-arrow-end="true" data-label="QUARANTINED (74 records)
+11 Rep Price &lt; ₹10
+4 Arrivals &lt;= 0
+59 Min Price &lt; ₹10" points="769.6171666666664,532.5683333333334 769.6171666666664,595.862 846.5819999999998,595.862 846.5819999999998,719.062" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="E" data-to="G1" data-style="solid" data-arrow-start="false" data-arrow-end="true" points="638.0649999999998,755.962 638.0649999999998,785.962 159.52799999999996,785.962 159.52799999999996,815.962" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="E" data-to="G2" data-style="solid" data-arrow-start="false" data-arrow-end="true" points="638.0649999999998,755.962 638.0649999999998,785.962 406.2064999999999,785.962 406.2064999999999,815.962" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="E" data-to="G3" data-style="solid" data-arrow-start="false" data-arrow-end="true" points="638.0649999999998,755.962 638.0649999999998,785.962 638.0649999999998,785.962 638.0649999999998,815.962" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="E" data-to="G4" data-style="solid" data-arrow-start="false" data-arrow-end="true" points="638.0649999999998,755.962 638.0649999999998,785.962 885.8549999999998,785.962 885.8549999999998,815.962" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="E" data-to="G5" data-style="solid" data-arrow-start="false" data-arrow-end="true" points="638.0649999999998,755.962 638.0649999999998,785.962 1155.1339999999996,785.962 1155.1339999999996,815.962" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="G1" data-to="H" data-style="solid" data-arrow-start="false" data-arrow-end="true" points="159.52799999999996,869.762 159.52799999999996,887.762 578.7127499999999,887.762 578.7127499999999,905.762" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="G2" data-to="H" data-style="solid" data-arrow-start="false" data-arrow-end="true" points="406.2064999999999,869.762 406.2064999999999,887.762 578.7127499999999,887.762 578.7127499999999,905.762" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="G3" data-to="H" data-style="solid" data-arrow-start="false" data-arrow-end="true" points="638.0649999999998,869.762 638.0649999999998,887.762 578.7127499999999,887.762 578.7127499999999,905.762" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="G4" data-to="H" data-style="solid" data-arrow-start="false" data-arrow-end="true" points="885.8549999999998,869.762 885.8549999999998,887.762 578.7127499999999,887.762 578.7127499999999,905.762" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="G5" data-to="H" data-style="solid" data-arrow-start="false" data-arrow-end="true" points="1155.1339999999996,869.762 1155.1339999999996,887.762 578.7127499999999,887.762 578.7127499999999,905.762" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<g class="edge-label" data-from="D" data-to="E" data-label="VALID (1,481,250 records)">
+  <rect x="569.5649999999998" y="645.7620000000001" width="136.45000000000005" height="30.3" rx="2" ry="2" fill="var(--bg)" stroke="var(--_inner-stroke)" stroke-width="1" />
+  <text x="637.7899999999998" y="660.912" text-anchor="middle" font-size="11" font-weight="400" fill="var(--_text-sec)" dy="3.8499999999999996">VALID (1,481,250 records)</text>
+</g>
+<g class="edge-label" data-from="D" data-to="F" data-label="QUARANTINED (74 records)
+11 Rep Price &lt; ₹10
+4 Arrivals &lt;= 0
+59 Min Price &lt; ₹10">
+  <rect x="770.5819999999998" y="602.862" width="151.89400000000003" height="73.2" rx="2" ry="2" fill="var(--bg)" stroke="var(--_inner-stroke)" stroke-width="1" />
+  <text x="846.5289999999998" y="639.462" text-anchor="middle" font-size="11" font-weight="400" fill="var(--_text-sec)"><tspan x="846.5289999999998" dy="-17.6">QUARANTINED (74 records)</tspan><tspan x="846.5289999999998" dy="14.3">11 Rep Price &lt; ₹10</tspan><tspan x="846.5289999999998" dy="14.3">4 Arrivals &lt;= 0</tspan><tspan x="846.5289999999998" dy="14.3">59 Min Price &lt; ₹10</tspan></text>
+</g>
+<g class="node" data-id="A" data-label="Raw Source Parquet
+all_market_history.parquet
+1,481,324 Records" data-shape="rectangle">
+  <rect x="642.0614999999998" y="40" width="200.524" height="70.7" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="742.3234999999997" y="75.35" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)"><tspan x="742.3234999999997" dy="-12.350000000000001">Raw Source Parquet</tspan><tspan x="742.3234999999997" dy="16.900000000000002">all_market_history.parquet</tspan><tspan x="742.3234999999997" dy="16.900000000000002">1,481,324 Records</tspan></text>
+</g>
+<g class="node" data-id="B" data-label="DuckDB Zero-Copy Ingestion
+src/ingestion/loader.py
+Creates raw_history view" data-shape="rectangle">
+  <rect x="635.7629999999998" y="158.7" width="213.12099999999995" height="70.7" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="742.3234999999997" y="194.04999999999998" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)"><tspan x="742.3234999999997" dy="-12.350000000000001">DuckDB Zero-Copy Ingestion</tspan><tspan x="742.3234999999997" dy="16.900000000000002">src/ingestion/loader.py</tspan><tspan x="742.3234999999997" dy="16.900000000000002">Creates raw_history view</tspan></text>
+</g>
+<g class="node" data-id="C" data-label="Transformation Pipeline
+src/cleaning/pipeline.py
+Creates vw_clean_market_history" data-shape="rectangle">
+  <rect x="620.2019999999998" y="277.4" width="244.24299999999997" height="70.7" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="742.3234999999997" y="312.75" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)"><tspan x="742.3234999999997" dy="-12.350000000000001">Transformation Pipeline</tspan><tspan x="742.3234999999997" dy="16.900000000000002">src/cleaning/pipeline.py</tspan><tspan x="742.3234999999997" dy="16.900000000000002">Creates vw_clean_market_history</tspan></text>
+</g>
+<g class="node" data-id="D" data-label="Data Quality Gate" data-shape="diamond">
+  <polygon points="742.3234999999997,396.1 824.2044999999997,477.981 742.3234999999997,559.862 660.4424999999998,477.981" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="742.3234999999997" y="477.981" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">Data Quality Gate</text>
+</g>
+<g class="node" data-id="E" data-label="Clean Analytical Layer" data-shape="rectangle">
+  <rect x="550.3999999999999" y="719.062" width="175.33" height="36.900000000000006" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="638.0649999999998" y="737.5120000000001" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">Clean Analytical Layer</text>
+</g>
+<g class="node" data-id="F" data-label="Quarantine Audit Ledger" data-shape="rectangle">
+  <rect x="753.7299999999998" y="719.062" width="185.70399999999998" height="36.900000000000006" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="846.5819999999998" y="737.5120000000001" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">Quarantine Audit Ledger</text>
+</g>
+<g class="node" data-id="G1" data-label="Market Spread Engine
+src/analytics/market_spreads.py" data-shape="rectangle">
+  <rect x="40" y="815.962" width="239.05599999999995" height="53.800000000000004" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="159.52799999999996" y="842.862" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)"><tspan x="159.52799999999996" dy="-3.9000000000000012">Market Spread Engine</tspan><tspan x="159.52799999999996" dy="16.900000000000002">src/analytics/market_spreads.py</tspan></text>
+</g>
+<g class="node" data-id="G2" data-label="Volatility &amp; Shock Analyzer
+src/analytics/volatility.py" data-shape="rectangle">
+  <rect x="307.0559999999999" y="815.962" width="198.30099999999996" height="53.800000000000004" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="406.2064999999999" y="842.862" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)"><tspan x="406.2064999999999" dy="-3.9000000000000012">Volatility &amp; Shock Analyzer</tspan><tspan x="406.2064999999999" dy="16.900000000000002">src/analytics/volatility.py</tspan></text>
+</g>
+<g class="node" data-id="G3" data-label="Panel Econometrics Engine
+src/models/econometrics.py" data-shape="rectangle">
+  <rect x="533.3569999999999" y="815.962" width="209.41599999999994" height="53.800000000000004" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="638.0649999999998" y="842.862" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)"><tspan x="638.0649999999998" dy="-3.9000000000000012">Panel Econometrics Engine</tspan><tspan x="638.0649999999998" dy="16.900000000000002">src/models/econometrics.py</tspan></text>
+</g>
+<g class="node" data-id="G4" data-label="Reliability Forensics Auditor
+src/analytics/reliability_audit.py" data-shape="rectangle">
+  <rect x="770.7729999999998" y="815.962" width="230.1639999999999" height="53.800000000000004" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="885.8549999999998" y="842.862" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)"><tspan x="885.8549999999998" dy="-3.9000000000000012">Reliability Forensics Auditor</tspan><tspan x="885.8549999999998" dy="16.900000000000002">src/analytics/reliability_audit.py</tspan></text>
+</g>
+<g class="node" data-id="G5" data-label="Decision Simulator
+src/simulator/decision_simulator.py" data-shape="rectangle">
+  <rect x="1028.9369999999997" y="815.962" width="252.39399999999998" height="53.800000000000004" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="1155.1339999999996" y="842.862" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)"><tspan x="1155.1339999999996" dy="-3.9000000000000012">Decision Simulator</tspan><tspan x="1155.1339999999996" dy="16.900000000000002">src/simulator/decision_simulator.py</tspan></text>
+</g>
+<g class="node" data-id="H" data-label="Streamlit Decision UI
+dashboard/app.py" data-shape="rectangle">
+  <rect x="498.45774999999986" y="905.762" width="160.51" height="53.800000000000004" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="578.7127499999999" y="932.6619999999999" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)"><tspan x="578.7127499999999" dy="-3.9000000000000012">Streamlit Decision UI</tspan><tspan x="578.7127499999999" dy="16.900000000000002">dashboard/app.py</tspan></text>
+</g>
+</svg>

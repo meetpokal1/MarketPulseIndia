@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 455.5369999999999 642" width="455.5369999999999" height="642" style="--bg:#18181B;--fg:#F4F4F5;--line:#71717A;--muted:#A1A1AA;--surface:#27272A;--border:#3F3F46;background:var(--bg)">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap');
+  text { font-family: 'Inter', system-ui, sans-serif; }
+  svg {
+    /* Derived from --bg and --fg (overridable via --line, --accent, etc.) */
+    --_text:          var(--fg);
+    --_text-sec:      var(--muted, color-mix(in srgb, var(--fg) 60%, var(--bg)));
+    --_text-muted:    var(--muted, color-mix(in srgb, var(--fg) 40%, var(--bg)));
+    --_text-faint:    color-mix(in srgb, var(--fg) 25%, var(--bg));
+    --_line:          var(--line, color-mix(in srgb, var(--fg) 50%, var(--bg)));
+    --_arrow:         var(--accent, color-mix(in srgb, var(--fg) 85%, var(--bg)));
+    --_node-fill:     var(--surface, color-mix(in srgb, var(--fg) 3%, var(--bg)));
+    --_node-stroke:   var(--border, color-mix(in srgb, var(--fg) 20%, var(--bg)));
+    --_group-fill:    var(--bg);
+    --_group-hdr:     color-mix(in srgb, var(--fg) 5%, var(--bg));
+    --_inner-stroke:  color-mix(in srgb, var(--fg) 12%, var(--bg));
+    --_key-badge:     color-mix(in srgb, var(--fg) 10%, var(--bg));
+  }
+</style>
+<defs>
+  <marker id="arrowhead" markerWidth="8" markerHeight="5" refX="7" refY="2.5" orient="auto">
+    <polygon points="0 0, 8 2.5, 0 5" fill="var(--_arrow)" stroke="var(--_arrow)" stroke-width="0.75" stroke-linejoin="round" />
+  </marker>
+  <marker id="arrowhead-start" markerWidth="8" markerHeight="5" refX="1" refY="2.5" orient="auto-start-reverse">
+    <polygon points="8 0, 0 2.5, 8 5" fill="var(--_arrow)" stroke="var(--_arrow)" stroke-width="0.75" stroke-linejoin="round" />
+  </marker>
+</defs>
+<g class="subgraph" data-id="TableauWorkbook" data-label="marketpulse_india.twbx (Tableau Public Suite)">
+  <rect x="40" y="40" width="375.5369999999999" height="562" rx="0" ry="0" fill="var(--_group-fill)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <rect x="40" y="40" width="375.5369999999999" height="28" rx="0" ry="0" fill="var(--_group-hdr)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <text x="52" y="54" font-size="12" font-weight="600" fill="var(--_text-sec)" dy="4.199999999999999">marketpulse_india.twbx (Tableau Public Suite)</text>
+</g>
+<g class="node" data-id="D1" data-label="&lt;b&gt;Dashboard 1: Market Pulse&lt;/b&gt;
+• Monthly Mean Price Trend (IQR Band)
+• 6-State Wholesale Price Comparison
+• Mandi Price Dispersion Boxplots
+• Monthly Physical Arrival Volumes" data-shape="rectangle">
+  <rect x="73.96924999999999" y="216.5" width="271.65999999999997" height="104.50000000000001" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="209.79924999999997" y="268.75" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)"><tspan x="209.79924999999997" dy="-29.250000000000004"><tspan font-weight="bold">Dashboard 1: Market Pulse</tspan></tspan><tspan x="209.79924999999997" dy="16.900000000000002">• Monthly Mean Price Trend (IQR Band)</tspan><tspan x="209.79924999999997" dy="16.900000000000002">• 6-State Wholesale Price Comparison</tspan><tspan x="209.79924999999997" dy="16.900000000000002">• Mandi Price Dispersion Boxplots</tspan><tspan x="209.79924999999997" dy="16.900000000000002">• Monthly Physical Arrival Volumes</tspan></text>
+</g>
+<g class="node" data-id="D2" data-label="&lt;b&gt;Dashboard 2: Spread Lab&lt;/b&gt;
+• Daily Price Spread Timeline (Zero Centered)
+• 74.75% Inversion Distribution Histogram
+• Cultivar Confounding Matrix (-₹218 vs -₹94)
+• Corridor Benchmark vs Pune-Mumbai" data-shape="rectangle">
+  <rect x="73.96924999999999" y="349" width="310.1919999999999" height="104.50000000000001" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="229.06524999999993" y="401.25" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)"><tspan x="229.06524999999993" dy="-29.250000000000004"><tspan font-weight="bold">Dashboard 2: Spread Lab</tspan></tspan><tspan x="229.06524999999993" dy="16.900000000000002">• Daily Price Spread Timeline (Zero Centered)</tspan><tspan x="229.06524999999993" dy="16.900000000000002">• 74.75% Inversion Distribution Histogram</tspan><tspan x="229.06524999999993" dy="16.900000000000002">• Cultivar Confounding Matrix (-₹218 vs -₹94)</tspan><tspan x="229.06524999999993" dy="16.900000000000002">• Corridor Benchmark vs Pune-Mumbai</tspan></text>
+</g>
+<g class="node" data-id="D3" data-label="&lt;b&gt;Dashboard 3: Arrival-Price Research&lt;/b&gt;
+• 14-Commodity Elasticity Forest Plot (±95% CI)
+• Counterfactual Shock Response (-10% vs Folklore)
+• Model Diagnostics Table (N, G, T, Within-R²)
+• Econometric Caveat &amp; Demeaning Notes" data-shape="rectangle">
+  <rect x="73.96924999999999" y="84" width="343.5369999999999" height="104.50000000000001" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="245.73774999999995" y="136.25" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)"><tspan x="245.73774999999995" dy="-29.250000000000004"><tspan font-weight="bold">Dashboard 3: Arrival-Price Research</tspan></tspan><tspan x="245.73774999999995" dy="16.900000000000002">• 14-Commodity Elasticity Forest Plot (±95% CI)</tspan><tspan x="245.73774999999995" dy="16.900000000000002">• Counterfactual Shock Response (-10% vs Folklore)</tspan><tspan x="245.73774999999995" dy="16.900000000000002">• Model Diagnostics Table (N, G, T, Within-R²)</tspan><tspan x="245.73774999999995" dy="16.900000000000002">• Econometric Caveat &amp; Demeaning Notes</tspan></text>
+</g>
+<g class="node" data-id="D4" data-label="&lt;b&gt;Dashboard 4: Reliability Forensics&lt;/b&gt;
+• 27,420 Streak Duration Histogram (≥7 Days)
+• Institutional Classification (MSP vs Sandhai)
+• State Flat-Quote &amp; Anomaly Heatmaps
+• 100% Conservation Waterfall (1.48M Records)" data-shape="rectangle">
+  <rect x="73.96924999999999" y="481.5" width="309.45099999999996" height="104.50000000000001" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="228.69474999999997" y="533.75" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)"><tspan x="228.69474999999997" dy="-29.250000000000004"><tspan font-weight="bold">Dashboard 4: Reliability Forensics</tspan></tspan><tspan x="228.69474999999997" dy="16.900000000000002">• 27,420 Streak Duration Histogram (≥7 Days)</tspan><tspan x="228.69474999999997" dy="16.900000000000002">• Institutional Classification (MSP vs Sandhai)</tspan><tspan x="228.69474999999997" dy="16.900000000000002">• State Flat-Quote &amp; Anomaly Heatmaps</tspan><tspan x="228.69474999999997" dy="16.900000000000002">• 100% Conservation Waterfall (1.48M Records)</tspan></text>
+</g>
+</svg>

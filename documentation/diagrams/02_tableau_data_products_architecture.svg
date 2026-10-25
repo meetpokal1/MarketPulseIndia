@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1424.022 364.70000000000005" width="1424.022" height="364.70000000000005" style="--bg:#18181B;--fg:#F4F4F5;--line:#71717A;--muted:#A1A1AA;--surface:#27272A;--border:#3F3F46;background:var(--bg)">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap');
+  text { font-family: 'Inter', system-ui, sans-serif; }
+  svg {
+    /* Derived from --bg and --fg (overridable via --line, --accent, etc.) */
+    --_text:          var(--fg);
+    --_text-sec:      var(--muted, color-mix(in srgb, var(--fg) 60%, var(--bg)));
+    --_text-muted:    var(--muted, color-mix(in srgb, var(--fg) 40%, var(--bg)));
+    --_text-faint:    color-mix(in srgb, var(--fg) 25%, var(--bg));
+    --_line:          var(--line, color-mix(in srgb, var(--fg) 50%, var(--bg)));
+    --_arrow:         var(--accent, color-mix(in srgb, var(--fg) 85%, var(--bg)));
+    --_node-fill:     var(--surface, color-mix(in srgb, var(--fg) 3%, var(--bg)));
+    --_node-stroke:   var(--border, color-mix(in srgb, var(--fg) 20%, var(--bg)));
+    --_group-fill:    var(--bg);
+    --_group-hdr:     color-mix(in srgb, var(--fg) 5%, var(--bg));
+    --_inner-stroke:  color-mix(in srgb, var(--fg) 12%, var(--bg));
+    --_key-badge:     color-mix(in srgb, var(--fg) 10%, var(--bg));
+  }
+</style>
+<defs>
+  <marker id="arrowhead" markerWidth="8" markerHeight="5" refX="7" refY="2.5" orient="auto">
+    <polygon points="0 0, 8 2.5, 0 5" fill="var(--_arrow)" stroke="var(--_arrow)" stroke-width="0.75" stroke-linejoin="round" />
+  </marker>
+  <marker id="arrowhead-start" markerWidth="8" markerHeight="5" refX="1" refY="2.5" orient="auto-start-reverse">
+    <polygon points="8 0, 0 2.5, 8 5" fill="var(--_arrow)" stroke="var(--_arrow)" stroke-width="0.75" stroke-linejoin="round" />
+  </marker>
+</defs>
+<g class="subgraph" data-id="MPW" data-label="MarketPulse India Tableau Public Workbook">
+  <rect x="148.48200000000014" y="210.9" width="1127.0579999999998" height="113.80000000000001" rx="0" ry="0" fill="var(--_group-fill)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <rect x="148.48200000000014" y="210.9" width="1127.0579999999998" height="28" rx="0" ry="0" fill="var(--_group-hdr)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <text x="160.48200000000014" y="224.9" font-size="12" font-weight="600" fill="var(--_text-sec)" dy="4.199999999999999">MarketPulse India Tableau Public Workbook</text>
+</g>
+<g class="subgraph" data-id="DataSources" data-label="Curated Data Products (data/processed/tableau/)">
+  <rect x="40" y="40" width="1344.022" height="110.9" rx="0" ry="0" fill="var(--_group-fill)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <rect x="40" y="40" width="1344.022" height="28" rx="0" ry="0" fill="var(--_group-hdr)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <text x="52" y="54" font-size="12" font-weight="600" fill="var(--_text-sec)" dy="4.199999999999999">Curated Data Products (data/processed/tableau/)</text>
+</g>
+<polyline class="edge" data-from="DS1" data-to="D1" data-style="solid" data-arrow-start="false" data-arrow-end="true" points="1057.02,134.9 1057.02,192.9 850.7260000000001,192.9 850.7259999999999,254.9" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="DS2" data-to="D2" data-style="solid" data-arrow-start="false" data-arrow-end="true" points="1266.2779999999998,134.9 1266.2779999999998,192.9 1120.0049999999999,192.9 1120.0049999999999,254.9" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="DS3" data-to="D3" data-style="solid" data-arrow-start="false" data-arrow-end="true" points="163.67199999999997,134.9 163.67200000000003,192.9 297.7185000000001,192.9 297.7185000000001,254.9" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="DS4" data-to="D4" data-style="solid" data-arrow-start="false" data-arrow-end="true" points="644.4319999999999,134.9 644.4319999999999,194.9 589.9685000000001,194.9 589.9685000000001,254.9" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="DS5" data-to="D4" data-style="solid" data-arrow-start="false" data-arrow-end="true" points="860.3589999999999,134.9 860.3589999999999,194.9 589.9685000000001,194.9 589.9685000000001,254.9" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="DS6" data-to="D4" data-style="solid" data-arrow-start="false" data-arrow-end="true" points="408.49799999999993,134.9 408.49799999999993,194.9 589.9685000000001,194.9 589.9685000000001,254.9" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<g class="node" data-id="D1" data-label="Dashboard 1: Market Pulse
+(Monthly Mandi Intelligence)" data-shape="rectangle">
+  <rect x="748.982" y="254.9" width="203.488" height="53.800000000000004" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="850.726" y="281.8" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)"><tspan x="850.726" dy="-3.9000000000000012">Dashboard 1: Market Pulse</tspan><tspan x="850.726" dy="16.900000000000002">(Monthly Mandi Intelligence)</tspan></text>
+</g>
+<g class="node" data-id="D2" data-label="Dashboard 2: Spread Lab
+(Spatial Arbitrage &amp; Variety Confounding)" data-shape="rectangle">
+  <rect x="980.47" y="254.9" width="279.06999999999994" height="53.800000000000004" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="1120.005" y="281.8" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)"><tspan x="1120.005" dy="-3.9000000000000012">Dashboard 2: Spread Lab</tspan><tspan x="1120.005" dy="16.900000000000002">(Spatial Arbitrage &amp; Variety Confounding)</tspan></text>
+</g>
+<g class="node" data-id="D3" data-label="Dashboard 3: Arrival–Price Research
+(Econometric Elasticity &amp; TWFE Panel)" data-shape="rectangle">
+  <rect x="164.48200000000014" y="254.9" width="266.47299999999996" height="53.800000000000004" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="297.7185000000001" y="281.8" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)"><tspan x="297.7185000000001" dy="-3.9000000000000012">Dashboard 3: Arrival–Price Research</tspan><tspan x="297.7185000000001" dy="16.900000000000002">(Econometric Elasticity &amp; TWFE Panel)</tspan></text>
+</g>
+<g class="node" data-id="D4" data-label="Dashboard 4: Reliability Forensics
+(Frozen Price Streaks &amp; Quality Audit)" data-shape="rectangle">
+  <rect x="458.9550000000001" y="254.9" width="262.02699999999993" height="53.800000000000004" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="589.9685000000001" y="281.8" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)"><tspan x="589.9685000000001" dy="-3.9000000000000012">Dashboard 4: Reliability Forensics</tspan><tspan x="589.9685000000001" dy="16.900000000000002">(Frozen Price Streaks &amp; Quality Audit)</tspan></text>
+</g>
+<g class="node" data-id="DS1" data-label="market_monthly.csv" data-shape="cylinder">
+  <rect x="977.5059999999999" y="91" width="159.02800000000002" height="36.900000000000006" fill="var(--_node-fill)" stroke="none" />
+  <line x1="977.5059999999999" y1="91" x2="977.5059999999999" y2="127.9" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <line x1="1136.5339999999999" y1="91" x2="1136.5339999999999" y2="127.9" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <ellipse cx="1057.02" cy="127.9" rx="79.51400000000001" ry="7" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <ellipse cx="1057.02" cy="91" rx="79.51400000000001" ry="7" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="1057.02" y="109.45" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">market_monthly.csv</text>
+</g>
+<g class="node" data-id="DS2" data-label="corridor_spread_daily.csv" data-shape="cylinder">
+  <rect x="1164.5339999999999" y="91" width="203.48799999999997" height="36.900000000000006" fill="var(--_node-fill)" stroke="none" />
+  <line x1="1164.5339999999999" y1="91" x2="1164.5339999999999" y2="127.9" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <line x1="1368.022" y1="91" x2="1368.022" y2="127.9" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <ellipse cx="1266.2779999999998" cy="127.9" rx="101.74399999999999" ry="7" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <ellipse cx="1266.2779999999998" cy="91" rx="101.74399999999999" ry="7" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="1266.2779999999998" y="109.45" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">corridor_spread_daily.csv</text>
+</g>
+<g class="node" data-id="DS3" data-label="arrival_elasticity_models.csv" data-shape="cylinder">
+  <rect x="56" y="91" width="215.34399999999997" height="36.900000000000006" fill="var(--_node-fill)" stroke="none" />
+  <line x1="56" y1="91" x2="56" y2="127.9" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <line x1="271.34399999999994" y1="91" x2="271.34399999999994" y2="127.9" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <ellipse cx="163.67199999999997" cy="127.9" rx="107.67199999999998" ry="7" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <ellipse cx="163.67199999999997" cy="91" rx="107.67199999999998" ry="7" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="163.67199999999997" y="109.45" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">arrival_elasticity_models.csv</text>
+</g>
+<g class="node" data-id="DS4" data-label="frozen_price_streaks.csv" data-shape="cylinder">
+  <rect x="545.6519999999999" y="91" width="197.55999999999997" height="36.900000000000006" fill="var(--_node-fill)" stroke="none" />
+  <line x1="545.6519999999999" y1="91" x2="545.6519999999999" y2="127.9" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <line x1="743.2119999999999" y1="91" x2="743.2119999999999" y2="127.9" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <ellipse cx="644.4319999999999" cy="127.9" rx="98.77999999999999" ry="7" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <ellipse cx="644.4319999999999" cy="91" rx="98.77999999999999" ry="7" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="644.4319999999999" y="109.45" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">frozen_price_streaks.csv</text>
+</g>
+<g class="node" data-id="DS5" data-label="quality_exceptions.csv" data-shape="cylinder">
+  <rect x="771.2119999999999" y="91" width="178.29399999999998" height="36.900000000000006" fill="var(--_node-fill)" stroke="none" />
+  <line x1="771.2119999999999" y1="91" x2="771.2119999999999" y2="127.9" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <line x1="949.5059999999999" y1="91" x2="949.5059999999999" y2="127.9" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <ellipse cx="860.3589999999999" cy="127.9" rx="89.14699999999999" ry="7" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <ellipse cx="860.3589999999999" cy="91" rx="89.14699999999999" ry="7" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="860.3589999999999" y="109.45" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">quality_exceptions.csv</text>
+</g>
+<g class="node" data-id="DS6" data-label="quality_monthly_summary.csv" data-shape="cylinder">
+  <rect x="299.34399999999994" y="91" width="218.308" height="36.900000000000006" fill="var(--_node-fill)" stroke="none" />
+  <line x1="299.34399999999994" y1="91" x2="299.34399999999994" y2="127.9" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <line x1="517.6519999999999" y1="91" x2="517.6519999999999" y2="127.9" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <ellipse cx="408.49799999999993" cy="127.9" rx="109.154" ry="7" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <ellipse cx="408.49799999999993" cy="91" rx="109.154" ry="7" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="408.49799999999993" y="109.45" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">quality_monthly_summary.csv</text>
+</g>
+</svg>
