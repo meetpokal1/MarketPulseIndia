@@ -231,7 +231,7 @@
         <rows>[ds_market_monthly].[avg:mean_daily_modal_price_rs_per_quintal:qk]</rows>
         <cols>[ds_market_monthly].[none:month_start_date:qk]</cols>
       </table>
-      <simple-id uuid='{7D233633-6DD4-41FA-A6A7-7FA2493B82A3}' />
+      <simple-id uuid='{4B58E921-722E-49A0-BA4A-E85A1FD47D16}' />
     </worksheet>
     <worksheet name='w_state_comparison'>
       <table>
@@ -257,7 +257,7 @@
         <rows>[ds_market_monthly].[none:state:nk]</rows>
         <cols>[ds_market_monthly].[avg:mean_daily_modal_price_rs_per_quintal:qk]</cols>
       </table>
-      <simple-id uuid='{1F00C667-C822-49DA-AB28-9422845C2B38}' />
+      <simple-id uuid='{E138A422-4550-466E-8ECD-FB5F8DA46CA6}' />
     </worksheet>
     <worksheet name='w_corridor_spread_timeline'>
       <table>
@@ -288,7 +288,7 @@
         <rows>[ds_corridor_spread].[avg:price_spread_quintal:qk]</rows>
         <cols>[ds_corridor_spread].[none:date:qk]</cols>
       </table>
-      <simple-id uuid='{E6EC4F29-33BD-4229-90CB-3D732E540FFA}' />
+      <simple-id uuid='{83E4E352-DB57-424B-A630-C6F5276D82CE}' />
     </worksheet>
     <worksheet name='w_corridor_spread_hist'>
       <table>
@@ -314,7 +314,7 @@
         <rows>[ds_corridor_spread].[none:corridor_name:nk]</rows>
         <cols>[ds_corridor_spread].[avg:price_spread_quintal:qk]</cols>
       </table>
-      <simple-id uuid='{9A6BAEF0-1215-4134-BA5A-5AA7A7DCB5BB}' />
+      <simple-id uuid='{75DFD88D-B117-46AC-8467-0D5BF53ABD39}' />
     </worksheet>
     <worksheet name='w_elasticity_forest_plot'>
       <table>
@@ -340,7 +340,7 @@
         <rows>[ds_elasticity_models].[none:commodity:nk]</rows>
         <cols>[ds_elasticity_models].[avg:estimated_elasticity_beta:qk]</cols>
       </table>
-      <simple-id uuid='{61E4144F-E0C8-4DAE-8D1E-B69294D445A2}' />
+      <simple-id uuid='{2F6F00DA-712B-4185-AD1F-DA6C10A637F3}' />
     </worksheet>
     <worksheet name='w_elasticity_shock_response'>
       <table>
@@ -366,7 +366,7 @@
         <rows>[ds_elasticity_models].[none:commodity:nk]</rows>
         <cols>[ds_elasticity_models].[avg:price_response_pct_for_minus_10pct_arrivals:qk]</cols>
       </table>
-      <simple-id uuid='{4EB53DB7-3A13-4616-BEB2-F422F8753219}' />
+      <simple-id uuid='{E9A225E9-1614-4107-8119-6F71B474BA08}' />
     </worksheet>
     <worksheet name='w_frozen_streak_distribution'>
       <table>
@@ -392,7 +392,7 @@
         <rows>[ds_frozen_streaks].[none:audit_priority:nk]</rows>
         <cols>[ds_frozen_streaks].[sum:streak_days:qk]</cols>
       </table>
-      <simple-id uuid='{5FDC2324-DCBA-4D27-AD04-3402565DE5CD}' />
+      <simple-id uuid='{118946D5-E22B-45D0-9D7C-349E8B211F2D}' />
     </worksheet>
     <worksheet name='w_frozen_explanation_pie'>
       <table>
@@ -418,7 +418,7 @@
         <rows>[ds_frozen_streaks].[none:plausible_explanation:nk]</rows>
         <cols>[ds_frozen_streaks].[sum:streak_days:qk]</cols>
       </table>
-      <simple-id uuid='{2C3332E6-63B0-47F3-AA72-E951E75D7702}' />
+      <simple-id uuid='{7A0D86AE-41B2-4A67-BF4E-58879DD957C3}' />
     </worksheet>
   </worksheets>
   <dashboards>
@@ -448,7 +448,7 @@
           </zone>
         </zone>
       </zones>
-      <simple-id uuid='{905807A1-3CB0-4A1E-9A5A-8751CB656385}' />
+      <simple-id uuid='{B1B14705-6386-492B-94DD-91A1B8F30658}' />
     </dashboard>
     <dashboard name='Dashboard 2 - Spread Lab'>
       <style />
@@ -475,7 +475,7 @@
           </zone>
         </zone>
       </zones>
-      <simple-id uuid='{CE00D4D9-12AF-44C1-BB42-8C06174AFDA8}' />
+      <simple-id uuid='{347D1A5B-210A-488D-9412-C1670EF8C60D}' />
     </dashboard>
     <dashboard name='Dashboard 3 - Arrival-Price Research'>
       <style />
@@ -502,7 +502,7 @@
           </zone>
         </zone>
       </zones>
-      <simple-id uuid='{7D8A2DB7-5241-4986-8FF3-C56ECFD4906B}' />
+      <simple-id uuid='{001B9F03-02EC-49F6-9525-9CD574BEE529}' />
     </dashboard>
     <dashboard name='Dashboard 4 - Reliability Forensics'>
       <style />
@@ -529,29 +529,225 @@
           </zone>
         </zone>
       </zones>
-      <simple-id uuid='{B7E10FEA-B61C-4BE4-B784-1FA8916F8B28}' />
+      <simple-id uuid='{1A3CE418-4E9C-4067-8233-CFEC6B35AE04}' />
     </dashboard>
   </dashboards>
   <windows>
+    <window class='worksheet' name='w_price_trends'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='title' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{017A9518-28DA-477B-A937-9BDEE6B7A967}' />
+    </window>
+    <window class='worksheet' name='w_state_comparison'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='title' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{F2A0B91B-5C08-4765-91D5-D3F745D0FFC5}' />
+    </window>
+    <window class='worksheet' name='w_corridor_spread_timeline'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='title' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{931F063C-6D67-41E0-9F49-03B4024EE8EC}' />
+    </window>
+    <window class='worksheet' name='w_corridor_spread_hist'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='title' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{9B8191FF-2728-4B7B-8B66-70EB21EC979E}' />
+    </window>
+    <window class='worksheet' name='w_elasticity_forest_plot'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='title' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{9858B697-E184-4A64-AEA5-DF0FF2875471}' />
+    </window>
+    <window class='worksheet' name='w_elasticity_shock_response'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='title' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{6388A297-1331-432C-B511-88FD2B9993A5}' />
+    </window>
+    <window class='worksheet' name='w_frozen_streak_distribution'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='title' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{3BFE2CAB-9093-453D-AE67-F07F79AF131E}' />
+    </window>
+    <window class='worksheet' name='w_frozen_explanation_pie'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='title' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{AEDC9664-A0D9-4A4F-B7B2-44550B6602BA}' />
+    </window>
     <window class='dashboard' maximized='true' name='Dashboard 1 - Market Pulse'>
-      <viewpoints />
+      <viewpoints>
+        <viewpoint name='w_price_trends' />
+        <viewpoint name='w_state_comparison' />
+      </viewpoints>
       <active id='-1' />
-      <simple-id uuid='{625A29A2-2DBE-4DD1-B921-7449677A51B6}' />
+      <simple-id uuid='{2E78AD6C-2CC3-4A5A-8CFA-121E69037C0B}' />
     </window>
     <window class='dashboard' name='Dashboard 2 - Spread Lab'>
-      <viewpoints />
+      <viewpoints>
+        <viewpoint name='w_corridor_spread_timeline' />
+        <viewpoint name='w_corridor_spread_hist' />
+      </viewpoints>
       <active id='-1' />
-      <simple-id uuid='{B0584720-2EBD-4EAA-972C-147B6C8C4C5E}' />
+      <simple-id uuid='{C2652D9C-AEDA-4D89-B8E9-2E0ADDE41F33}' />
     </window>
     <window class='dashboard' name='Dashboard 3 - Arrival-Price Research'>
-      <viewpoints />
+      <viewpoints>
+        <viewpoint name='w_elasticity_forest_plot' />
+        <viewpoint name='w_elasticity_shock_response' />
+      </viewpoints>
       <active id='-1' />
-      <simple-id uuid='{701829B6-E11B-4980-B065-68611751E9DB}' />
+      <simple-id uuid='{1A3A83A2-EF8C-481B-A0CE-44AC6AECF73F}' />
     </window>
     <window class='dashboard' name='Dashboard 4 - Reliability Forensics'>
-      <viewpoints />
+      <viewpoints>
+        <viewpoint name='w_frozen_streak_distribution' />
+        <viewpoint name='w_frozen_explanation_pie' />
+      </viewpoints>
       <active id='-1' />
-      <simple-id uuid='{2400504F-D85C-4CB5-B294-2E4A3DDF0697}' />
+      <simple-id uuid='{B9A8474B-2243-408D-B337-ED5FD3B57304}' />
     </window>
   </windows>
 </workbook>

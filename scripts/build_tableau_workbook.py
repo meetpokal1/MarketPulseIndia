@@ -634,26 +634,78 @@ def create_workbook_xml(is_packaged: bool = False) -> str:
 
     # --------------------------------------------------------------------------
     # Windows & Layout Navigation
+    # Every worksheet must have a visual representation (<window class="worksheet">)
+    # and dashboards must declare their active viewpoints.
     # --------------------------------------------------------------------------
+    xml.append("  <windows>")
+
+    worksheets = [
+        "w_price_trends",
+        "w_state_comparison",
+        "w_corridor_spread_timeline",
+        "w_corridor_spread_hist",
+        "w_elasticity_forest_plot",
+        "w_elasticity_shock_response",
+        "w_frozen_streak_distribution",
+        "w_frozen_explanation_pie",
+    ]
+    for ws_name in worksheets:
+        xml.extend([
+            f"    <window class='worksheet' name='{ws_name}'>",
+            "      <cards>",
+            "        <edge name='left'>",
+            "          <strip size='160'>",
+            "            <card type='pages' />",
+            "            <card type='filters' />",
+            "            <card type='marks' />",
+            "          </strip>",
+            "        </edge>",
+            "        <edge name='top'>",
+            "          <strip size='2147483647'>",
+            "            <card type='columns' />",
+            "          </strip>",
+            "          <strip size='2147483647'>",
+            "            <card type='rows' />",
+            "          </strip>",
+            "          <strip size='2147483647'>",
+            "            <card type='title' />",
+            "          </strip>",
+            "        </edge>",
+            "      </cards>",
+            f"      <simple-id uuid='{gen_uuid()}' />",
+            "    </window>",
+        ])
+
     xml.extend([
-        "  <windows>",
         "    <window class='dashboard' maximized='true' name='Dashboard 1 - Market Pulse'>",
-        "      <viewpoints />",
+        "      <viewpoints>",
+        "        <viewpoint name='w_price_trends' />",
+        "        <viewpoint name='w_state_comparison' />",
+        "      </viewpoints>",
         "      <active id='-1' />",
         f"      <simple-id uuid='{gen_uuid()}' />",
         "    </window>",
         "    <window class='dashboard' name='Dashboard 2 - Spread Lab'>",
-        "      <viewpoints />",
+        "      <viewpoints>",
+        "        <viewpoint name='w_corridor_spread_timeline' />",
+        "        <viewpoint name='w_corridor_spread_hist' />",
+        "      </viewpoints>",
         "      <active id='-1' />",
         f"      <simple-id uuid='{gen_uuid()}' />",
         "    </window>",
         "    <window class='dashboard' name='Dashboard 3 - Arrival-Price Research'>",
-        "      <viewpoints />",
+        "      <viewpoints>",
+        "        <viewpoint name='w_elasticity_forest_plot' />",
+        "        <viewpoint name='w_elasticity_shock_response' />",
+        "      </viewpoints>",
         "      <active id='-1' />",
         f"      <simple-id uuid='{gen_uuid()}' />",
         "    </window>",
         "    <window class='dashboard' name='Dashboard 4 - Reliability Forensics'>",
-        "      <viewpoints />",
+        "      <viewpoints>",
+        "        <viewpoint name='w_frozen_streak_distribution' />",
+        "        <viewpoint name='w_frozen_explanation_pie' />",
+        "      </viewpoints>",
         "      <active id='-1' />",
         f"      <simple-id uuid='{gen_uuid()}' />",
         "    </window>",
