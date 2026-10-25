@@ -11,7 +11,7 @@ Strictly satisfies Tableau's XSD content models:
   - View: (datasources?, mapsources?, datasource-dependencies*, ..., aggregation)
   - Datasource-dependencies: column must have datatype, name, role, type
   - Worksheet: (..., table, simple-id)
-  - Dashboard: (style, size?, datasources, datasource-dependencies*, zones, devicelayouts, simple-id)
+  - Dashboard: (style, size?, datasources, datasource-dependencies*, zones, simple-id)
 """
 
 import sys
@@ -509,7 +509,7 @@ def create_workbook_xml(is_packaged: bool = False) -> str:
 
     # --------------------------------------------------------------------------
     # Dashboards Definition (Fully Schema-Compliant)
-    # Content Model: (style, size?, datasources, datasource-dependencies*, zones, devicelayouts, simple-id)
+    # Content Model: (style, size?, datasources, datasource-dependencies*, zones, simple-id)
     # --------------------------------------------------------------------------
     xml.extend([
         "  <dashboards>",
@@ -540,8 +540,7 @@ def create_workbook_xml(is_packaged: bool = False) -> str:
         "          </zone>",
         "        </zone>",
         "      </zones>",
-        "      <devicelayouts />",
-        f"      <simple-id uuid='{gen_uuid()}' />",
+                f"      <simple-id uuid='{gen_uuid()}' />",
         "    </dashboard>",
 
         # Dashboard 2: Spread Lab
@@ -570,8 +569,7 @@ def create_workbook_xml(is_packaged: bool = False) -> str:
         "          </zone>",
         "        </zone>",
         "      </zones>",
-        "      <devicelayouts />",
-        f"      <simple-id uuid='{gen_uuid()}' />",
+                f"      <simple-id uuid='{gen_uuid()}' />",
         "    </dashboard>",
 
         # Dashboard 3: Arrival-Price Research
@@ -600,8 +598,7 @@ def create_workbook_xml(is_packaged: bool = False) -> str:
         "          </zone>",
         "        </zone>",
         "      </zones>",
-        "      <devicelayouts />",
-        f"      <simple-id uuid='{gen_uuid()}' />",
+                f"      <simple-id uuid='{gen_uuid()}' />",
         "    </dashboard>",
 
         # Dashboard 4: Reliability Forensics
@@ -630,8 +627,7 @@ def create_workbook_xml(is_packaged: bool = False) -> str:
         "          </zone>",
         "        </zone>",
         "      </zones>",
-        "      <devicelayouts />",
-        f"      <simple-id uuid='{gen_uuid()}' />",
+                f"      <simple-id uuid='{gen_uuid()}' />",
         "    </dashboard>",
         "  </dashboards>",
     ])

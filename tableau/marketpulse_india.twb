@@ -231,7 +231,7 @@
         <rows>[ds_market_monthly].[avg:mean_daily_modal_price_rs_per_quintal:qk]</rows>
         <cols>[ds_market_monthly].[none:month_start_date:qk]</cols>
       </table>
-      <simple-id uuid='{BFBA6440-E64B-4E76-82CD-E1DDED57B229}' />
+      <simple-id uuid='{7D233633-6DD4-41FA-A6A7-7FA2493B82A3}' />
     </worksheet>
     <worksheet name='w_state_comparison'>
       <table>
@@ -257,7 +257,7 @@
         <rows>[ds_market_monthly].[none:state:nk]</rows>
         <cols>[ds_market_monthly].[avg:mean_daily_modal_price_rs_per_quintal:qk]</cols>
       </table>
-      <simple-id uuid='{383BC7EC-A5F7-45EA-BF60-86570C586E7E}' />
+      <simple-id uuid='{1F00C667-C822-49DA-AB28-9422845C2B38}' />
     </worksheet>
     <worksheet name='w_corridor_spread_timeline'>
       <table>
@@ -288,7 +288,7 @@
         <rows>[ds_corridor_spread].[avg:price_spread_quintal:qk]</rows>
         <cols>[ds_corridor_spread].[none:date:qk]</cols>
       </table>
-      <simple-id uuid='{7A33E0E3-90EC-4A33-AF2C-E8A8A516EE82}' />
+      <simple-id uuid='{E6EC4F29-33BD-4229-90CB-3D732E540FFA}' />
     </worksheet>
     <worksheet name='w_corridor_spread_hist'>
       <table>
@@ -314,7 +314,7 @@
         <rows>[ds_corridor_spread].[none:corridor_name:nk]</rows>
         <cols>[ds_corridor_spread].[avg:price_spread_quintal:qk]</cols>
       </table>
-      <simple-id uuid='{A5B6D2C3-88C5-40C8-92F8-B20C059ECE2B}' />
+      <simple-id uuid='{9A6BAEF0-1215-4134-BA5A-5AA7A7DCB5BB}' />
     </worksheet>
     <worksheet name='w_elasticity_forest_plot'>
       <table>
@@ -340,7 +340,7 @@
         <rows>[ds_elasticity_models].[none:commodity:nk]</rows>
         <cols>[ds_elasticity_models].[avg:estimated_elasticity_beta:qk]</cols>
       </table>
-      <simple-id uuid='{969B1229-C4A1-49E8-815B-38887A403AC4}' />
+      <simple-id uuid='{61E4144F-E0C8-4DAE-8D1E-B69294D445A2}' />
     </worksheet>
     <worksheet name='w_elasticity_shock_response'>
       <table>
@@ -366,7 +366,7 @@
         <rows>[ds_elasticity_models].[none:commodity:nk]</rows>
         <cols>[ds_elasticity_models].[avg:price_response_pct_for_minus_10pct_arrivals:qk]</cols>
       </table>
-      <simple-id uuid='{2AA4A2CF-4F4D-455F-9F09-0A75F0424A32}' />
+      <simple-id uuid='{4EB53DB7-3A13-4616-BEB2-F422F8753219}' />
     </worksheet>
     <worksheet name='w_frozen_streak_distribution'>
       <table>
@@ -392,7 +392,7 @@
         <rows>[ds_frozen_streaks].[none:audit_priority:nk]</rows>
         <cols>[ds_frozen_streaks].[sum:streak_days:qk]</cols>
       </table>
-      <simple-id uuid='{CC151F1F-3B65-448D-AD67-75F0FE894F3A}' />
+      <simple-id uuid='{5FDC2324-DCBA-4D27-AD04-3402565DE5CD}' />
     </worksheet>
     <worksheet name='w_frozen_explanation_pie'>
       <table>
@@ -418,7 +418,7 @@
         <rows>[ds_frozen_streaks].[none:plausible_explanation:nk]</rows>
         <cols>[ds_frozen_streaks].[sum:streak_days:qk]</cols>
       </table>
-      <simple-id uuid='{C32E91F3-0880-4E0F-A5D3-2AB59A12A54B}' />
+      <simple-id uuid='{2C3332E6-63B0-47F3-AA72-E951E75D7702}' />
     </worksheet>
   </worksheets>
   <dashboards>
@@ -448,8 +448,7 @@
           </zone>
         </zone>
       </zones>
-      <devicelayouts />
-      <simple-id uuid='{FE9F5393-A800-4F93-8747-917B8F155D29}' />
+      <simple-id uuid='{905807A1-3CB0-4A1E-9A5A-8751CB656385}' />
     </dashboard>
     <dashboard name='Dashboard 2 - Spread Lab'>
       <style />
@@ -476,8 +475,7 @@
           </zone>
         </zone>
       </zones>
-      <devicelayouts />
-      <simple-id uuid='{8D6B150C-534F-412F-A41E-CEC32134041C}' />
+      <simple-id uuid='{CE00D4D9-12AF-44C1-BB42-8C06174AFDA8}' />
     </dashboard>
     <dashboard name='Dashboard 3 - Arrival-Price Research'>
       <style />
@@ -504,8 +502,7 @@
           </zone>
         </zone>
       </zones>
-      <devicelayouts />
-      <simple-id uuid='{DCB80CBB-A90E-410A-B93C-4471119E6E63}' />
+      <simple-id uuid='{7D8A2DB7-5241-4986-8FF3-C56ECFD4906B}' />
     </dashboard>
     <dashboard name='Dashboard 4 - Reliability Forensics'>
       <style />
@@ -532,30 +529,29 @@
           </zone>
         </zone>
       </zones>
-      <devicelayouts />
-      <simple-id uuid='{006FA307-0CC0-4EE8-97CB-30CA9E2E02FE}' />
+      <simple-id uuid='{B7E10FEA-B61C-4BE4-B784-1FA8916F8B28}' />
     </dashboard>
   </dashboards>
   <windows>
     <window class='dashboard' maximized='true' name='Dashboard 1 - Market Pulse'>
       <viewpoints />
       <active id='-1' />
-      <simple-id uuid='{4CB1551E-C622-4A60-97CC-8E70430C57A5}' />
+      <simple-id uuid='{625A29A2-2DBE-4DD1-B921-7449677A51B6}' />
     </window>
     <window class='dashboard' name='Dashboard 2 - Spread Lab'>
       <viewpoints />
       <active id='-1' />
-      <simple-id uuid='{F507E0F1-A37C-4B3C-BFF5-F414DD7286B0}' />
+      <simple-id uuid='{B0584720-2EBD-4EAA-972C-147B6C8C4C5E}' />
     </window>
     <window class='dashboard' name='Dashboard 3 - Arrival-Price Research'>
       <viewpoints />
       <active id='-1' />
-      <simple-id uuid='{897A6187-EFE5-4B9F-BEAA-CC5BB867E512}' />
+      <simple-id uuid='{701829B6-E11B-4980-B065-68611751E9DB}' />
     </window>
     <window class='dashboard' name='Dashboard 4 - Reliability Forensics'>
       <viewpoints />
       <active id='-1' />
-      <simple-id uuid='{0F1DD2E2-C55F-4DF9-AB1B-BD603F9007FA}' />
+      <simple-id uuid='{2400504F-D85C-4CB5-B294-2E4A3DDF0697}' />
     </window>
   </windows>
 </workbook>
