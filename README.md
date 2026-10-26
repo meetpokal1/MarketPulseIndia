@@ -9,9 +9,16 @@
 [![Data Integrity](https://img.shields.io/badge/Row%20Conservation-100%25-3b82f6)](documentation/METHODOLOGY.md)
 [![Tableau Public](https://img.shields.io/badge/Tableau%20Public-Live%20Dashboards-E97627?logo=tableau&logoColor=white)](https://public.tableau.com/app/profile/meet.pokal/viz/MarketPulseIndiaEssentialCommodityPriceIntelligence_/Dashboard1-MarketPulse)
 
-**MarketPulse India** is an investigative agricultural market intelligence platform built on **1,481,324 official AGMARKNET wholesale records** spanning August 2024 to September 2026 across 6 Indian states.
+**MarketPulse India** analyses **1,481,324 official AGMARKNET wholesale records** from August 2024 to September 2026 across six Indian states. It helps investigate why reported prices differ between markets, whether unusual records need checking, and how wholesale prices move alongside reported arrivals.
 
-Rather than merely displaying raw prices, MarketPulse India investigates **why reported wholesale prices differ**, detects **variety reporting confounding**, measures **empirical price-arrival elasticity** using panel econometrics, audits **mandi reporting reliability**, and provides a **decision simulator for transport economics**.
+The aim is not to tell a buyer where to purchase today. It is to make historical market comparisons more careful and highlight patterns that deserve further investigation.
+
+## Who it's for and what decisions it supports
+
+- **Who it's for:** businesses that buy produce in bulk, including supermarket procurement teams, food processors, wholesalers and distributors, as well as agricultural analysts and researchers.
+- **How teams can use it:** compare historical prices for a crop across markets, review price and arrival patterns, inspect data-quality flags, and test how an assumed transport cost changes a hypothetical sourcing scenario.
+- **Potential business benefit:** identify market patterns and possible sourcing options worth investigating before making purchasing plans.
+- **Important boundaries:** this is historical wholesale data, not a live price feed. The ₹120/quintal freight figure is a modeled assumption; a price spread alone does not prove a profitable trade, and the statistical findings are observational.
 
 ---
 
