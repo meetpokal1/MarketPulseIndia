@@ -9,16 +9,19 @@
 [![Data Integrity](https://img.shields.io/badge/Row%20Conservation-100%25-3b82f6)](documentation/METHODOLOGY.md)
 [![Tableau Public](https://img.shields.io/badge/Tableau%20Public-Live%20Dashboards-E97627?logo=tableau&logoColor=white)](https://public.tableau.com/app/profile/meet.pokal/viz/MarketPulseIndiaEssentialCommodityPriceIntelligence_/Dashboard1-MarketPulse)
 
-**MarketPulse India** analyses **1,481,324 official AGMARKNET wholesale records** from August 2024 to September 2026 across six Indian states. It helps investigate why reported prices differ between markets, whether unusual records need checking, and how wholesale prices move alongside reported arrivals.
+**MarketPulse India** studies more than 1.48 million historical wholesale-market records across six states to compare price patterns, flag questionable reports, and examine how prices move alongside market arrivals.
 
-The aim is not to tell a buyer where to purchase today. It is to make historical market comparisons more careful and highlight patterns that deserve further investigation.
+### Business Problem
+Wholesale prices for the same crop can differ across markets and dates, but the lowest listed price is not automatically the best buying option. Crop variety, reporting quality, market arrivals and transport costs can change the comparison. MarketPulse studies more than 1.48 million historical wholesale-market records across six states to compare price patterns, flag questionable reports, and examine how prices move alongside market arrivals.
 
-## Who it's for and what decisions it supports
+### Who It Is For
+Procurement teams at food processors, supermarket chains, wholesalers and distributors that buy produce from multiple wholesale markets (mandis), as well as agricultural analysts and researchers studying regional prices and arrivals.
 
-- **Who it's for:** businesses that buy produce in bulk, including supermarket procurement teams, food processors, wholesalers and distributors, as well as agricultural analysts and researchers.
-- **How teams can use it:** compare historical prices for a crop across markets, review price and arrival patterns, inspect data-quality flags, and test how an assumed transport cost changes a hypothetical sourcing scenario.
-- **Potential business benefit:** identify market patterns and possible sourcing options worth investigating before making purchasing plans.
-- **Important boundaries:** this is historical wholesale data, not a live price feed. The ₹120/quintal freight figure is a modeled assumption; a price spread alone does not prove a profitable trade, and the statistical findings are observational.
+### How Teams Use It
+Teams compare historical prices for the same crop across markets and dates, review arrival trends and data-quality warnings, and test how an assumed transport cost changes the apparent price advantage of one market. They can use the results to shortlist markets or periods for further checking before making a sourcing decision.
+
+### Decision Benefits & Boundaries
+MarketPulse helps users spot price patterns and sourcing options worth investigating, while showing how data quality and cost assumptions affect the comparison. It uses historical records, not live purchasing data. The ₹120-per-quintal freight cost is a modeled assumption, and a price gap alone does not prove a profitable trade because other costs may apply. Statistical relationships between arrivals and prices do not prove that one causes the other.
 
 ---
 
